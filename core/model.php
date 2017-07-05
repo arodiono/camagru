@@ -1,13 +1,11 @@
 <?php
 
-/**
- *
- */
 class Model
 {
+	public $database;
 
 	function __construct()
 	{
-		# code...
+		$this->database = Database::getConnection();
 	}
 }

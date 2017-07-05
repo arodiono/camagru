@@ -1,13 +1,15 @@
 <?php
 
-/**
- *
- */
 class Controller
 {
+	public $model;
+	public $view;
 
 	function __construct()
 	{
-		echo "string";
+		Session::init();
+
+		$this->model = new Model();
+		$this->view = new View();
 	}
 }

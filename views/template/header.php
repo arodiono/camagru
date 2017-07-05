@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<link media="screen" type="text/css" href="/css/style.css">
-		<title><?=$data['title'] ?></title>
+		<title><?=$title ?></title>
 	</head>
 	<body>
+		<div class="container">

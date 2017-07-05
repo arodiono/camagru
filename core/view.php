@@ -1,13 +1,16 @@
 <?php
 
-/**
- *
- */
 class View
 {
 
-	function __construct()
+	public function render($content, $data = array())
 	{
-		# code...
+		if(is_array($data))
+		{
+			extract($data);
+		}
+		include_once APP . 'views/template/header.php';
+		include_once APP . 'views/' . $content . '.php';
+		include_once APP . 'views/template/footer.php';
 	}
 }
