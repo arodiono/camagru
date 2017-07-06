@@ -3,13 +3,11 @@
 class UserController extends Controller
 {
 
-	function __construct()
+	public function __construct()
 	{
-		$class_name = str_replace('Controller', '', __CLASS__);
-		$view_name = $class_name . 'View';
-		$model_name = $class_name . 'Model';
-		$this->model = new $model_name();
-		$this->view = new $view_name();
+		parent::__construct();
+		$this->model = new UserModel();
+		$this->view = new View();
 	}
 
 	public function index()
@@ -19,7 +17,14 @@ class UserController extends Controller
 
 	public function register()
 	{
-		$this->model->register();
+		$data['title'] = 'Register';
+		$this->view->render('register', $data);
+	}
+
+	public function registerAction()
+	{
+		$registration = $this->model->addNewUser();
+		$this->view->renderNotification();
 	}
 
 	public function login()

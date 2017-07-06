@@ -9,7 +9,7 @@ class Controller
 	{
 		Session::init();
 
-		$this->model = new Model();
-		$this->view = new View();
+		// $this->model = new Model();
+		// $this->view = new View();
 	}
 }
