@@ -8,8 +8,6 @@ class Controller
 	function __construct()
 	{
 		Session::init();
-
-		// $this->model = new Model();
-		// $this->view = new View();
+		$this->view = new View();
 	}
 }

@@ -7,7 +7,7 @@ class UserController extends Controller
 	{
 		parent::__construct();
 		$this->model = new UserModel();
-		$this->view = new View();
+		// $this->view = new View();
 	}
 
 	public function index()
@@ -21,10 +21,23 @@ class UserController extends Controller
 		$this->view->render('register', $data);
 	}
 
-	public function registerAction()
+	public function registerAction($data)
 	{
-		$registration = $this->model->addNewUser();
+		$registration = $this->model->addNewUser($data);
 		$this->view->renderNotification();
+	}
+
+	public function validateFormInput()
+	{
+		$validation = $this->model->validateFormInput();
+		if ($validation)
+		{
+			$this->registerAction($validation);
+		}
+		else
+		{
+			$this->view->renderNotification();
+		}
 	}
 
 	public function login()

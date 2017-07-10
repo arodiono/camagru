@@ -23,14 +23,14 @@ class View
 		{
 			foreach ($error as $value)
 			{
-				echo '<div class="error">' . $value . '</div>';
+				echo '<div class="alert alert-danger">' . '<strong>Warning! </strong>' . $value . '</div>';
 			}
 		}
 		if (isset($info))
 		{
 			foreach ($info as $value)
 			{
-				echo '<div class="info">' . $value . '</div>';
+				echo '<div class="alert alert-success">' . '<strong>Success! </strong>' . $value . '</div>';
 			}
 		}
 

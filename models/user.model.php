@@ -8,7 +8,7 @@ class UserModel extends Model
 		parent::__construct();
 	}
 
-	public function addNewUser()
+	public function validateFormInput()
 	{
 		$login = $_POST['login'];
 		$email = $_POST['email'];
@@ -17,6 +17,11 @@ class UserModel extends Model
 
 		if ( !$this->validatePassword($password, $passwordConfirm) )
 		{
+			return false;
+		}
+		if ( !filter_var($email, FILTER_VALIDATE_EMAIL) )
+		{
+			Session::add('errorMessage', 'Invalid email address');
 			return false;
 		}
 		if ( $this->isUserExist($login) )
@@ -29,7 +34,12 @@ class UserModel extends Model
 			Session::add('errorMessage', 'User email already exist');
 			return false;
 		}
+		return array('login' => $login, 'email' => $email, 'password' => $password);
+	}
 
+	public function addNewUser($data)
+	{
+		extract($data, EXTR_OVERWRITE);
 		$passwordHash = password_hash($password, PASSWORD_DEFAULT);
 		$activationHash = hash('md5', uniqid(rand(), true));
 
@@ -43,7 +53,7 @@ class UserModel extends Model
 			Session::add('errorMessage', 'Error when sending a mail with an activation code. Please try again later');
 			return false;
 		}
-
+		Session::add('infoMessage', 'User successfully registered');
 		return true;
 	}
 
@@ -121,7 +131,7 @@ class UserModel extends Model
 			return false;
 	}
 
-	public static function activateUser($login, $hash)
+	public function activateUser($login, $hash)
 	{
 		$request = "UPDATE `users`
 					SET `active` = 1
@@ -142,4 +152,5 @@ class UserModel extends Model
 			return false;
 		}
 	}
+
 }
