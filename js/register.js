@@ -1,18 +1,40 @@
-function sendRequest () {
+"use strict";
+function sendRequest()
+{
+	removeAlert();
 	var request = new XMLHttpRequest();
-
-	request.open('POST', 'registerAction', false);
-
-	request.send();
-
+	var data = new FormData(document.forms.register);
+	var message = "<div class=\"alert alert-danger\"><strong>Warning! </strong> All fields must not be empty</div>";
+	if (!data.get("login") || !data.get("email")
+		|| !data.get("password") || !data.get("passwordConfirm")) {
+		renderAlert(message);
+		return;
+	}
+	request.open('POST', 'validateFormInput', true);
+	request.send(data);
 	request.onreadystatechange = function() {
-		if (this.readyState != 4) return;
-
-		if (this.status != 200) {
-			alert( 'Error: ' + (this.status ? this.statusText : 'Request failed') );
+		if (this.readyState != 4)
+			return;
+		if (this.status != 200 && this.status != 201) {
+			renderAlert( 'Error: ' + (this.status ? this.statusText : 'Request failed') );
 			return;
 		}
-
-	  // получить результат из this.responseText или this.responseXML
+		if (this.status == 201) {
+			setTimeout( 'location="login";', 1000 );
+		}
+		renderAlert(this.responseText);
+		return;
 	}
+}
+function renderAlert(body) {
+	var div = document.createElement('div');
+	var container = document.querySelector(".register-form");
+	div.innerHTML = body;
+	container.insertBefore(div, container.firstChild);
+}
+function removeAlert() {
+	var container = document.querySelector(".register-form");
+	var alert = document.querySelector(".alert");
+	if (alert)
+		alert.remove();
 }
