@@ -16,7 +16,7 @@ try
 	$insert = $db->prepare("CREATE TABLE `db_camagru00`.`users`(
 		`id` INT NOT NULL AUTO_INCREMENT,
 		`login` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-		`password` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+		`password` VARCHAR(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 		`email` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 		`hash` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
 		`active` INT(1) UNSIGNED NOT NULL DEFAULT '0',

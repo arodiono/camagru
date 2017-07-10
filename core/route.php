@@ -4,7 +4,7 @@ class Route
 {
 	private $controller;
 	private $action;
-	private $params;
+	public $params;
 
 	public function __construct()
 	{
@@ -29,7 +29,7 @@ class Route
 			elseif (method_exists($controller_name, $this->action))
 			{
 				$this->controller = new $controller_name();
-				call_user_func_array(array($this->controller, $this->action), $this->params);
+				call_user_func_array(array($this->controller, $this->action), array($this->params));
 			}
 			else
 			{

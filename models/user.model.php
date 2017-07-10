@@ -40,7 +40,7 @@ class UserModel extends Model
 	public function addNewUser($data)
 	{
 		extract($data, EXTR_OVERWRITE);
-		$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+		$passwordHash = password_hash($password, PASSWORD_BCRYPT);
 		$activationHash = hash('md5', uniqid(rand(), true));
 
 		if ( !$this->writeNewUser($login, $passwordHash, $email, $activationHash) )
@@ -113,7 +113,7 @@ class UserModel extends Model
 
 	private function sendActivationMail($login, $email, $hash)
 	{
-		$link = 'http://' . $_SERVER['HTTP_HOST'] . '/user/activate/' . $login . '/'. $hash . '/';
+		$link = 'http://' . $_SERVER['HTTP_HOST'] . '/user/activate/' . $email . '/'. $hash . '/';
 
 		$subject = 'Camagru account activation';
 
@@ -131,15 +131,16 @@ class UserModel extends Model
 			return false;
 	}
 
-	public function activateUser($login, $hash)
+	public function activateUser($data = array())
 	{
+		$email = $data[0];
+		$hash = $data[1];
 		$request = "UPDATE `users`
 					SET `active` = 1
-					WHERE `login` = \"$login\"
+					WHERE `email` = \"$email\"
 					AND `hash` = \"$hash\"";
 		$update = $this->database->prepare($request);
 		$update->execute();
-
 		$count = $update->rowCount();
 		if ($count == 1)
 		{
@@ -150,6 +151,29 @@ class UserModel extends Model
 		{
 			Session::add('errorMessage', 'User is not activated');
 			return false;
+		}
+	}
+
+	public function login()
+	{
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+
+		$request = $this->database->prepare("SELECT `login`, `email`, `password`
+					FROM `users`
+					WHERE `email` = \"$email\"");
+		$request->execute();
+
+		$data = $request->fetch();
+		if ($data->email !== $email || !password_verify($password, $data->password))
+		{
+			Session::add('errorMessage', 'Incorrect username or password.');
+			return false;
+		}
+		else
+		{
+			Session::set('logged_on_user', $data->login);
+			return true;
 		}
 	}
 
