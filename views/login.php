@@ -1,4 +1,4 @@
-<div class="register-form">
+<div class="login-form">
 	<form method="post" name="login">
 		<div class="form-group">
 			<label for="email">Email address</label>
@@ -23,7 +23,7 @@ function sendRequest()
 		renderAlert(message);
 		return;
 	}
-	request.open('POST', 'loginAction', true);
+	request.open('POST', 'login/login', true);
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (this.readyState != 4)
@@ -41,12 +41,12 @@ function sendRequest()
 }
 function renderAlert(body) {
 	var div = document.createElement('div');
-	var container = document.querySelector(".register-form");
+	var container = document.querySelector(".login-form");
 	div.innerHTML = body;
 	container.insertBefore(div, container.firstChild);
 }
 function removeAlert() {
-	var container = document.querySelector(".register-form");
+	var container = document.querySelector(".login-form");
 	var alert = document.querySelector(".alert");
 	if (alert)
 		alert.remove();
