@@ -3,14 +3,14 @@ function sendRequest()
 {
 	removeAlert();
 	var request = new XMLHttpRequest();
-	var data = new FormData(document.forms.register);
+	var data = new FormData(document.forms.registration);
 	var message = "<div class=\"alert alert-danger\"><strong>Warning! </strong> All fields must not be empty</div>";
 	if (!data.get("login") || !data.get("email")
 		|| !data.get("password") || !data.get("passwordConfirm")) {
 		renderAlert(message);
 		return;
 	}
-	request.open('POST', 'validateFormInput', true);
+	request.open('POST', 'registration/validateFormInput', true);
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (this.readyState != 4)
@@ -28,12 +28,12 @@ function sendRequest()
 }
 function renderAlert(body) {
 	var div = document.createElement('div');
-	var container = document.querySelector(".register-form");
+	var container = document.querySelector(".registration-form");
 	div.innerHTML = body;
 	container.insertBefore(div, container.firstChild);
 }
 function removeAlert() {
-	var container = document.querySelector(".register-form");
+	var container = document.querySelector(".registration-form");
 	var alert = document.querySelector(".alert");
 	if (alert)
 		alert.remove();

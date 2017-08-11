@@ -1,5 +1,5 @@
-<div class="register-form">
-	<form method="post" name="register">
+<div class="registration-form">
+	<form method="post" name="registration">
 		<div class="form-group">
 			<label for="login">Username</label>
 			<input id="login" class="form-control" type="text" name="login" placeholder="Enter your name" autofocus="">
@@ -22,4 +22,4 @@
 		<p class="form-text text-muted">After submitting the form you will receive an email with the activation code</p>
 	</form>
 </div>
-<script src="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>js/register.js"></script>
+<script src="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>js/registration.js"></script>

@@ -26,4 +26,4 @@ spl_autoload_register(function ($class) {
 
 $app = new Route();
 
-var_dump(Session::isLoggedOnUser());
+var_dump(session_id());
