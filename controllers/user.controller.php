@@ -19,5 +19,5 @@ class UserController extends Controller
 		$activate = $this->model->activateUser($data);
 		$this->view->renderNotification();
 	}
-	
+
 }

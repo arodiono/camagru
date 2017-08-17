@@ -10,7 +10,7 @@ class LoginController extends Controller
 	public function index()
 	{
 		$data['title'] = 'Login';
-		$this->view->render('login', $data);
+        $this->view->renderNoTemplate('login', $data);
 	}
 
 	public function login()

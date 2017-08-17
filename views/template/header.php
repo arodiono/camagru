@@ -7,4 +7,12 @@
 		<title><?=$title ?></title>
 	</head>
 	<body>
+        <header>
+            <div class="container">
+                <nav>
+                    <a href=""><h3>Camagru</h3></a>
+
+                </nav>
+            </div>
+        </header>
 		<div class="container">

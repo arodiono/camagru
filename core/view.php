@@ -14,6 +14,15 @@ class View
 		include_once APP . 'views/template/footer.php';
 	}
 
+    public function renderNoTemplate($content, $data = array())
+    {
+        if(is_array($data))
+        {
+            extract($data);
+        }
+        include_once APP . 'views/' . $content . '.php';
+    }
+
 	public function renderNotification()
 	{
 		$error = Session::get('errorMessage');

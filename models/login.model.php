@@ -14,7 +14,7 @@ class LoginModel extends Model
 
 		if ( !filter_var($email, FILTER_VALIDATE_EMAIL) )
 		{
-			Session::add('errorMessage', 'Incorrect username or password.');
+			Session::add('errorMessage', 'Incorrect email or password.');
 			return false;
 		}
 
@@ -31,7 +31,7 @@ class LoginModel extends Model
 		}
 		if ($data->email !== $email || !password_verify($password, $data->password))
 		{
-			Session::add('errorMessage', 'Incorrect username or password.');
+			Session::add('errorMessage', 'Incorrect email or password.');
 			return false;
 		}
 		else
@@ -40,4 +40,14 @@ class LoginModel extends Model
 			return true;
 		}
 	}
+
+
+
+	public function setNewPassword()
+	{
+
+	}
+
+
+
 }
