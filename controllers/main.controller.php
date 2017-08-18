@@ -14,11 +14,13 @@ class MainController extends Controller
 
         if (Session::isLoggedOnUser())
 		{
+		    $posts = new PostsModel();
+            $data['posts'] = $posts->getLastPosts();
 			$this->view->render('main', $data);
 		}
 		else
 		{
-		    $data['header'] = 'Sign up to see photos from your friends';
+//		    $data['header'] = 'Sign up to see photos from your friends';
             $this->view->renderNoTemplate('registration', $data);
 
 //            header('Location: //' . $_SERVER['HTTP_HOST'] . '/login');

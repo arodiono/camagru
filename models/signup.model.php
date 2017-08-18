@@ -1,6 +1,6 @@
 <?php
 
-class RegistrationModel extends Model
+class SignupModel extends Model
 {
 	function __construct()
 	{
@@ -10,6 +10,7 @@ class RegistrationModel extends Model
 	public function validateFormInput()
 	{
 		$login = $_POST['login'];
+		$fullname = $_POST['fullname'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$passwordConfirm = $_POST['passwordConfirm'];
@@ -33,7 +34,7 @@ class RegistrationModel extends Model
 			Session::add('errorMessage', 'User email already exist');
 			return false;
 		}
-		return array('login' => $login, 'email' => $email, 'password' => $password);
+		return array('login' => $login, 'fullname' => $fullname, 'email' => $email, 'password' => $password);
 	}
 
 	public function addNewUser($data)
@@ -42,7 +43,7 @@ class RegistrationModel extends Model
 		$passwordHash = password_hash($password, PASSWORD_BCRYPT);
 		$activationHash = hash('md5', uniqid(rand(), true));
 
-		if ( !$this->writeNewUser($login, $passwordHash, $email, $activationHash) )
+		if ( !$this->writeNewUser($login, $fullname, $passwordHash, $email, $activationHash) )
 		{
 			Session::add('errorMessage', 'Registration failed. Please try again later');
 			return false;
@@ -95,11 +96,11 @@ class RegistrationModel extends Model
 		return true;
 	}
 
-	private function writeNewUser($login, $password, $email, $hash)
+	private function writeNewUser($login, $fullname, $password, $email, $hash)
 	{
-		$data = array($login, $password, $email, $hash);
-		$request = "INSERT INTO `users`(`login`, `password`, `email`, `hash`)
-					VALUES(?, ?, ?, ?)";
+		$data = array($login, $fullname, $password, $email, $hash);
+		$request = "INSERT INTO `users`(`login`, `fullname`, `password`, `email`, `hash`)
+					VALUES(?, ?, ?, ?, ?)";
 		$insert = $this->database->prepare($request);
 		$insert->execute($data);
 

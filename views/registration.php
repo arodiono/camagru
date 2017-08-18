@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie|Raleway:300" rel="stylesheet">
     <title><?=$title ?></title>
 </head>
 <body>
     <div class="container">
         <div class="form-box">
             <h1 class="header-logo text-center">Camagru</h1>
-            <p class="text-center"><?=$header ?></p>
+            <p class="text-center">Sign up to see photos from your friends</p>
             <div class="form">
                 <form method="post" name="registration">
                     <div class="form-group">
@@ -30,12 +30,12 @@
                     <div class="form-group">
                         <input id="passwordConfirm" class="form-control" type="password" name="passwordConfirm" placeholder="Confirm password">
                     </div>
-                    <input class="btn btn-default btn-inline" type="button" onclick="sendRequest(); " value="Sign up">
+                    <input class="btn btn-default btn-inline" type="button" onclick="sendRequest();" value="Sign up">
     <!--                <p class="form-text text-muted">After submitting the form you will receive an email with the activation code</p>-->
                 </form>
-                <div class="registration-footer">
+                <div class="form-box-footer">
                     <p class="text-center">Have an account?</p>
-                    <a class="btn btn-default btn-inline" href="/login">Login</a>
+                    <a class="btn btn-default btn-inline" href="/login">Log in</a>
                 </div>
             </div>
         </div>

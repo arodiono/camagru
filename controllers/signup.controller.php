@@ -1,18 +1,18 @@
 <?php
 
-class RegistrationController extends Controller
+class SignupController extends Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->model = new RegistrationModel();
+		$this->model = new SignupModel();
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Register';
-		$this->view->render('registration', $data);
+		$this->view->renderNoTemplate('registration', $data);
 	}
 
 	public function register($data)

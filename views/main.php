@@ -1,2 +1,40 @@
-<h3>Hello World!</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<?php
+    foreach ($posts as $item)
+    {
+?>
+        <article class="post-box">
+            <div class="post-header">
+                <a href="/user/<?=$item['login']?>"><img class="post-user-img" src="/uploads/<?= $item['login'] . '/' . $item['avatar'] . '.jpg' ?>" alt=""></a>
+                <p class="post-username"><?=$item['login']?></p>
+            </div>
+            <div class="post-img-box">
+                <img class="post-img" src="/uploads/<?= $item['login'] . '/' . $item['img_id'] . '.jpg' ?>" alt="">
+            </div>
+            <div class="post-footer">
+                <div class="post-footer-actions">
+                    <div class="set-like"></div>
+                    <div class="set-comment"></div>
+                </div>
+                <?php
+                    if (!empty($item['description'])){
+                ?>
+                        <div class="post-comment">
+                            <p class="post-comment-username"><?=$item['login']?></p>
+                            <p><?=trim($item['description'])?></p>
+                        </div>
+                        <?php
+                    }
+                ?>
+            </div>
+            <div class="post-footer-form">
+                <form class="comment-form">
+                    <input class="post-comment-input" type="text" name="comment" placeholder="Add a comment...">
+                </form>
+            </div>
+        </article>
+<?php
+    }
+?>
+
+
+

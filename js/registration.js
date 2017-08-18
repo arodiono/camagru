@@ -10,7 +10,7 @@ function sendRequest()
 		renderAlert(message);
 		return;
 	}
-	request.open('POST', 'registration/validateFormInput', true);
+	request.open('POST', 'signup/validateFormInput', true);
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (this.readyState != 4)
@@ -28,12 +28,12 @@ function sendRequest()
 }
 function renderAlert(body) {
 	var div = document.createElement('div');
-	var container = document.querySelector(".registration-form");
+	var container = document.querySelector(".form");
 	div.innerHTML = body;
 	container.insertBefore(div, container.firstChild);
 }
 function removeAlert() {
-	var container = document.querySelector(".registration-form");
+	var container = document.querySelector(".form");
 	var alert = document.querySelector(".alert");
 	if (alert)
 		alert.remove();

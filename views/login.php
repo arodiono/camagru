@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Raleway:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie|Raleway:300" rel="stylesheet">
     <title><?=$title ?></title>
 </head>
 <body>
@@ -13,20 +13,18 @@
         <div class="form">
             <form method="post" name="login">
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input id="email" class="form-control" type="email" name="email" placeholder="Enter email adress">
+                    <input id="email" class="form-control" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" type="password" name="password" placeholder="Enter Password">
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Password">
                 </div>
-                <input class="btn" type="button" onclick="sendRequest(); " value="Login">
+                <input class="btn btn-default btn-inline" type="button" onclick="sendRequest(); " value="Log in">
             </form>
 
             <div class="form-box-footer">
-                <a href="/password/forgot">Forgot password?</a>
+                <a href="/password/forgot"><p class="text-center">Forgot password?</p></a>
                 <p class="text-center">Don`t have an account?</p>
-                <a class="btn btn-default btn-inline" href="/register">Sign up</a>
+                <a class="btn btn-default btn-inline" href="/signup">Sign up</a>
             </div>
         </div>
     </div>
@@ -84,12 +82,12 @@ function sendRequest()
 }
 function renderAlert(body) {
 	var div = document.createElement('div');
-	var container = document.querySelector(".login-form");
+	var container = document.querySelector(".form");
 	div.innerHTML = body;
 	container.insertBefore(div, container.firstChild);
 }
 function removeAlert() {
-	var container = document.querySelector(".login-form");
+	var container = document.querySelector(".form");
 	var alert = document.querySelector(".alert");
 	if (alert)
 		alert.remove();
