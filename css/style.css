@@ -1,3 +1,15 @@
+@font-face {
+	font-family: 'camagru';
+	src: url('../font/camagru.eot?6207335');
+	src: url('../font/camagru.eot?6207335#iefix') format('embedded-opentype'),
+	url('../font/camagru.woff2?6207335') format('woff2'),
+	url('../font/camagru.woff?6207335') format('woff'),
+	url('../font/camagru.ttf?6207335') format('truetype'),
+	url('../font/camagru.svg?6207335#camagru') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
 html {
 	box-sizing: border-box;
 	font-family: sans-serif;
@@ -41,14 +53,14 @@ p {
 }
 
 a {
-	color: #007bff;
+	color: #1f2f3d;
 	text-decoration: none;
 	background-color: transparent;
 	-webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-	color: #0056b3;
+	/*color: #0056b3;*/
 }
 
 a:not([href]):not([tabindex]) {
@@ -70,7 +82,7 @@ b, strong {
 }
 
 b, strong {
-	font-weight: bolder;
+	font-weight: bold;
 }
 
 small {
@@ -493,12 +505,12 @@ a.btn {
 }
 
 .header-logo {
-	margin: 30px 0;
+	margin: 18px 0;
 }
 
 
 .post-box {
-	margin: 50px 0;
+	margin-bottom: 50px;
 	border: 1px solid #efefef;
 	background-color: #fff;
 	box-sizing: border-box;
@@ -512,13 +524,35 @@ a.btn {
 }
 
 .post-footer {
-	padding: 15px;
+	padding: 10px 15px 0 15px;
 	border-top: 1px solid #efefef;
 	box-sizing: border-box;
 }
 
 .post-footer-actions {
 	display: flex;
+}
+
+.post-footer-actions i {
+	width: 35px;
+	height: 35px;
+	margin: 0 5px 5px 0;
+}
+
+.post-footer-actions i:hover {
+	opacity: .8;
+}
+
+.post-footer-actions i:hover {
+	opacity: .8;
+}
+
+.post-footer-actions i:active {
+	font-size: 24px;
+}
+
+.post-footer-actions i:first-child {
+	margin-left: -5px;
 }
 
 .post-comment-input {
@@ -550,32 +584,107 @@ a.btn {
 
 .post-username {
 	margin: 3px 0;
+	font-weight: 700;
+}
+
+.post-likes p {
+	margin: 0;
+	font-weight: bold;
+}
+.post-comment {
+	display: inline;
+}
+
+.post-comment p {
+	margin: 5px 0;
 }
 
 .post-comment-username {
+	float: left;
 	font-weight: bold;
 	margin-right: 10px;
 }
 
-.post-comment {
-	display: flex;
-}
 .comment-form {
+	border-top: 1px solid #efefef;
 	height: 50px;
 	margin: 0;
 	padding: 0;
 }
 
-.set-comment {
-	width: 32px;
-	height: 32px;
-	padding: 5px;
-	background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ4MS42IDQ4MS42IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0ODEuNiA0ODEuNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8Zz4KCTxwYXRoIGQ9Ik0zODEuNiwzMDkuNGMtMjcuNywwLTUyLjQsMTMuMi02OC4yLDMzLjZsLTEzMi4zLTczLjljMy4xLTguOSw0LjgtMTguNSw0LjgtMjguNGMwLTEwLTEuNy0xOS41LTQuOS0yOC41bDEzMi4yLTczLjggICBjMTUuNywyMC41LDQwLjUsMzMuOCw2OC4zLDMzLjhjNDcuNCwwLDg2LjEtMzguNiw4Ni4xLTg2LjFTNDI5LDAsMzgxLjUsMHMtODYuMSwzOC42LTg2LjEsODYuMWMwLDEwLDEuNywxOS42LDQuOSwyOC41ICAgbC0xMzIuMSw3My44Yy0xNS43LTIwLjYtNDAuNS0zMy44LTY4LjMtMzMuOGMtNDcuNCwwLTg2LjEsMzguNi04Ni4xLDg2LjFzMzguNyw4Ni4xLDg2LjIsODYuMWMyNy44LDAsNTIuNi0xMy4zLDY4LjQtMzMuOSAgIGwxMzIuMiw3My45Yy0zLjIsOS01LDE4LjctNSwyOC43YzAsNDcuNCwzOC42LDg2LjEsODYuMSw4Ni4xczg2LjEtMzguNiw4Ni4xLTg2LjFTNDI5LjEsMzA5LjQsMzgxLjYsMzA5LjR6IE0zODEuNiwyNy4xICAgYzMyLjYsMCw1OS4xLDI2LjUsNTkuMSw1OS4xcy0yNi41LDU5LjEtNTkuMSw1OS4xcy01OS4xLTI2LjUtNTkuMS01OS4xUzM0OS4xLDI3LjEsMzgxLjYsMjcuMXogTTEwMCwyOTkuOCAgIGMtMzIuNiwwLTU5LjEtMjYuNS01OS4xLTU5LjFzMjYuNS01OS4xLDU5LjEtNTkuMXM1OS4xLDI2LjUsNTkuMSw1OS4xUzEzMi41LDI5OS44LDEwMCwyOTkuOHogTTM4MS42LDQ1NC41ICAgYy0zMi42LDAtNTkuMS0yNi41LTU5LjEtNTkuMWMwLTMyLjYsMjYuNS01OS4xLDU5LjEtNTkuMXM1OS4xLDI2LjUsNTkuMSw1OS4xQzQ0MC43LDQyOCw0MTQuMiw0NTQuNSwzODEuNiw0NTQuNXoiIGZpbGw9IiMwMDAwMDAiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K) no-repeat left center;
+button.post-comment {
+	width: 25px;
+	height: 25px;
+	margin: 5px;
+	border: none;
+	outline: none;
+	background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ3MyA0NzMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ3MyA0NzM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMzJweCIgaGVpZ2h0PSIzMnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDAzLjU4MSw2OS4zYy00NC43LTQ0LjctMTA0LTY5LjMtMTY3LjItNjkuM3MtMTIyLjUsMjQuNi0xNjcuMiw2OS4zYy04Ni40LDg2LjQtOTIuNCwyMjQuNy0xNC45LDMxOCAgICBjLTcuNiwxNS4zLTE5LjgsMzMuMS0zNy45LDQyYy04LjcsNC4zLTEzLjYsMTMuNi0xMi4xLDIzLjJzOC45LDE3LjEsMTguNSwxOC42YzQuNSwwLjcsMTAuOSwxLjQsMTguNywxLjQgICAgYzIwLjksMCw1MS43LTQuOSw4My4yLTI3LjZjMzUuMSwxOC45LDczLjUsMjguMSwxMTEuNiwyOC4xYzYxLjIsMCwxMjEuOC0yMy43LDE2Ny40LTY5LjNjNDQuNy00NC43LDY5LjMtMTA0LDY5LjMtMTY3LjIgICAgUzQ0OC4yODEsMTE0LDQwMy41ODEsNjkuM3ogTTM4NC40ODEsMzg0LjZjLTY3LjUsNjcuNS0xNzIsODAuOS0yNTQuMiwzMi42Yy01LjQtMy4yLTEyLjEtMi4yLTE2LjQsMi4xYy0wLjQsMC4yLTAuOCwwLjUtMS4xLDAuOCAgICBjLTI3LjEsMjEtNTMuNywyNS40LTcxLjMsMjUuNGgtMC4xYzIwLjMtMTQuOCwzMy4xLTM2LjgsNDAuNi01My45YzEuMi0yLjksMS40LTUuOSwwLjctOC43Yy0wLjMtMi43LTEuNC01LjQtMy4zLTcuNiAgICBjLTczLjItODIuNy02OS40LTIwOC43LDguOC0yODYuOWM4MS43LTgxLjcsMjE0LjYtODEuNywyOTYuMiwwQzQ2Ni4xODEsMTcwLjEsNDY2LjE4MSwzMDIuOSwzODQuNDgxLDM4NC42eiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxjaXJjbGUgY3g9IjIzNi4zODEiIGN5PSIyMzYuNSIgcj0iMTYuNiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxjaXJjbGUgY3g9IjMyMS45ODEiIGN5PSIyMzYuNSIgcj0iMTYuNiIgZmlsbD0iIzAwMDAwMCIvPgoJCTxjaXJjbGUgY3g9IjE1MC43ODEiIGN5PSIyMzYuNSIgcj0iMTYuNiIgZmlsbD0iIzAwMDAwMCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=) no-repeat left center;
+	background-size: contain;
 }
 
-.set-like {
-	width: 32px;
-	height: 32px;
-	padding: 5px;
+button.post-like {
+	width: 25px;
+	height: 25px;
+	margin: 5px;
+	border: none;
+	outline: none;
 	background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ3MS43MDEgNDcxLjcwMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDcxLjcwMSA0NzEuNzAxOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPHBhdGggZD0iTTQzMy42MDEsNjcuMDAxYy0yNC43LTI0LjctNTcuNC0zOC4yLTkyLjMtMzguMnMtNjcuNywxMy42LTkyLjQsMzguM2wtMTIuOSwxMi45bC0xMy4xLTEzLjEgICBjLTI0LjctMjQuNy01Ny42LTM4LjQtOTIuNS0zOC40Yy0zNC44LDAtNjcuNiwxMy42LTkyLjIsMzguMmMtMjQuNywyNC43LTM4LjMsNTcuNS0zOC4yLDkyLjRjMCwzNC45LDEzLjcsNjcuNiwzOC40LDkyLjMgICBsMTg3LjgsMTg3LjhjMi42LDIuNiw2LjEsNCw5LjUsNGMzLjQsMCw2LjktMS4zLDkuNS0zLjlsMTg4LjItMTg3LjVjMjQuNy0yNC43LDM4LjMtNTcuNSwzOC4zLTkyLjQgICBDNDcxLjgwMSwxMjQuNTAxLDQ1OC4zMDEsOTEuNzAxLDQzMy42MDEsNjcuMDAxeiBNNDE0LjQwMSwyMzIuNzAxbC0xNzguNywxNzhsLTE3OC4zLTE3OC4zYy0xOS42LTE5LjYtMzAuNC00NS42LTMwLjQtNzMuMyAgIHMxMC43LTUzLjcsMzAuMy03My4yYzE5LjUtMTkuNSw0NS41LTMwLjMsNzMuMS0zMC4zYzI3LjcsMCw1My44LDEwLjgsNzMuNCwzMC40bDIyLjYsMjIuNmM1LjMsNS4zLDEzLjgsNS4zLDE5LjEsMGwyMi40LTIyLjQgICBjMTkuNi0xOS42LDQ1LjctMzAuNCw3My4zLTMwLjRjMjcuNiwwLDUzLjYsMTAuOCw3My4yLDMwLjNjMTkuNiwxOS42LDMwLjMsNDUuNiwzMC4zLDczLjMgICBDNDQ0LjgwMSwxODcuMTAxLDQzNC4wMDEsMjEzLjEwMSw0MTQuNDAxLDIzMi43MDF6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==) no-repeat left center;
+	background-size: contain;
+}
+
+button.post-share {
+	width: 25px;
+	height: 25px;
+	margin: 5px;
+	border: none;
+	outline: none;
+	background: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQ2OS4wMzggNDY5LjAzOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDY5LjAzOCA0NjkuMDM4OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPHBhdGggZD0iTTQ2NS4wMjMsNC4wNzljLTMuOS0zLjktOS45LTUtMTQuOS0yLjhsLTQ0MiwxOTMuN2MtNC43LDIuMS03LjgsNi42LTguMSwxMS43czIuNCw5LjksNi44LDEyLjRsMTU0LjEsODcuNGw5MS41LDE1NS43ICAgYzIuNCw0LjEsNi45LDYuNywxMS42LDYuN2MwLjMsMCwwLjUsMCwwLjgsMGM1LjEtMC4zLDkuNS0zLjQsMTEuNi04LjFsMTkxLjUtNDQxLjhDNDcwLjEyMywxMy44NzksNDY5LjAyMyw3Ljk3OSw0NjUuMDIzLDQuMDc5eiAgICBNMzk0LjcyMyw1NC45NzlsLTIyNi4yLDIyNC43bC0xMjQuOS03MC44TDM5NC43MjMsNTQuOTc5eiBNMjYyLjIyMyw0MjUuNTc5bC03NC41LTEyNi45bDIyNy41LTIyNkwyNjIuMjIzLDQyNS41Nzl6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==) no-repeat left center;
+	background-size: contain;
+}
+
+.icon {
+	cursor: pointer;
+	font-size: 25px;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: "camagru";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+
+	/* For safety - reset parent styles, that can break glyph codes*/
+	font-variant: normal;
+	text-transform: none;
+
+	/* fix buttons height, for twitter bootstrap */
+	line-height: 1em;
+
+	/* Animation center compensation - margins should be symmetric */
+	/* remove if not needed */
+	margin-left: .2em;
+
+	/* you can be more comfortable with increased icons size */
+	/* font-size: 120%; */
+
+	/* Font smoothing. That was taken from TWBS */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Uncomment for 3D effect */
+	/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-paper-plane:before { content: '\e803'; }
+.icon-comment:before { content: '\e804'; }
+.icon-camera:before { content: '\e805'; }
+.icon-heart:before { content: '\e806'; }
+.icon-cog:before { content: '\e807'; }
+.red {
+	color: #721c24;
 }

@@ -7,6 +7,8 @@ ini_set('session.cookie_httponly', 1);
 
 define('APP', __DIR__ . DIRECTORY_SEPARATOR);
 
+date_default_timezone_set('Europe/Kiev');
+
 spl_autoload_register(function ($class) {
 
 	$core = APP . 'core/' . strtolower($class) . '.php';

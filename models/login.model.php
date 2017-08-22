@@ -18,7 +18,7 @@ class LoginModel extends Model
 			return false;
 		}
 
-		$request = $this->database->prepare("SELECT `login`, `email`, `password`, `active`
+		$request = $this->database->prepare("SELECT *
 					FROM `users`
 					WHERE `email` = \"$email\"");
 		$request->execute();
@@ -37,17 +37,10 @@ class LoginModel extends Model
 		else
 		{
 			Session::set('logged_on_user', true);
-			return true;
+            Session::set('user_id', $data->user_id);
+            Session::set('username', $data->login);
+            Session::set('avatar', $data->avatar);
+            return true;
 		}
 	}
-
-
-
-	public function setNewPassword()
-	{
-
-	}
-
-
-
 }

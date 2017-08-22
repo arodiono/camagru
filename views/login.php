@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Cookie|Raleway:300" rel="stylesheet">
     <title><?=$title ?></title>
@@ -11,14 +13,14 @@
     <div class="form-box">
         <h1 class="header-logo text-center">Camagru</h1>
         <div class="form">
-            <form method="post" name="login">
+            <form method="post" name="login" action="javascript:void(null);" onsubmit="sendRequest()">
                 <div class="form-group">
-                    <input id="email" class="form-control" type="email" name="email" placeholder="Email">
+                    <input id="email" class="form-control" type="email" name="email" placeholder="Email" autofocus>
                 </div>
                 <div class="form-group">
                     <input id="password" class="form-control" type="password" name="password" placeholder="Password">
                 </div>
-                <input class="btn btn-default btn-inline" type="button" onclick="sendRequest(); " value="Log in">
+                <input class="btn btn-default btn-inline" type="submit" value="Log in">
             </form>
 
             <div class="form-box-footer">
