@@ -14,9 +14,12 @@ class PostsModel extends Model
 
     public function getComments($post)
     {
-        $request = "SELECT *
-                    FROM `comments`
-                    WHERE `post_id` = $post";
+        $request = "SELECT `comments`.`text`, `comments`.`date`, `users`.`login`
+                    FROM `users`
+                    LEFT JOIN `comments` ON `comments`.`user_id` = `users`.`user_id`
+                    WHERE (`comments`.`post_id`=$post)
+                    ORDER BY `comments`.`comment_id`
+                    ASC";
         $select = $this->database->prepare($request);
         $select->execute();
         return $select->fetchAll(2);
@@ -33,10 +36,9 @@ class PostsModel extends Model
         $select->execute();
         $comments = $select->fetchAll(2);
 
-        foreach ($comments as $item)
-        {
-            $item['comments'] = $this->getComments($item['post_id']);
-        }
+        for ($i=0; $i < count($comments); $i++)
+            $comments[$i]['comments'] = $this->getComments($comments[$i]['post_id']);
+
         return $comments;
     }
 

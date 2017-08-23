@@ -10,12 +10,18 @@ class Route
 	{
 		$this->splitUrl();
 
-		if(!$this->controller)
+		if($this->controller == null)
 		{
 			// Set default controller
 			$this->controller = new MainController();
 			$this->controller->index();
 		}
+		elseif ($this->isUser())
+        {
+            $user = $this->controller;
+            $this->controller = new UserController();
+            $this->controller->index($user);
+        }
 		elseif (file_exists(APP . 'controllers/' . $this->controller . '.controller.php'))
 		{
 			// Set controller and model if exist
@@ -46,6 +52,11 @@ class Route
 		}
 	}
 
+	private function isUser()
+    {
+        $res = new SignupModel();
+        return $res->isUserExist($this->controller);
+    }
 	private function splitUrl()
 	{
 		$url = explode(DIRECTORY_SEPARATOR, trim($_SERVER['REQUEST_URI'], DIRECTORY_SEPARATOR));

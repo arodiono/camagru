@@ -16,7 +16,7 @@ class MainController extends Controller
 		{
 		    $posts = new PostsModel();
             $data['posts'] = $posts->getLastPosts();
-			$this->view->render('main', $data);
+            $this->view->render('main', $data);
 		}
 		else
 		{

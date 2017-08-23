@@ -9,12 +9,13 @@
 		<title><?=$title ?></title>
 	</head>
 	<body>
-<!--    --><?php
-//        var_dump($_SESSION);
-//    ?>
         <header>
             <div class="container">
-                    <h1 class="header-logo text-center"><a href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>">Camagru</a></h1>
+                <nav>
+                    <i class="icon icon-camera"></i>
+                    <h1 class="header-logo"><a href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>">Camagru</a></h1>
+                    <a href="/<?=$_SESSION['username']?>"><i class="icon icon-user"></i></a>
+                </nav>
             </div>
         </header>
 		<div class="container">

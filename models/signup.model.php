@@ -57,7 +57,7 @@ class SignupModel extends Model
 		return true;
 	}
 
-	private function isUserExist($login)
+	public function isUserExist($login)
 	{
 		$request = $this->database->prepare("SELECT `login`
 								FROM `users`

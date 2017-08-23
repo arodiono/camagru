@@ -9,9 +9,13 @@ class UserController extends Controller
 		$this->model = new UserModel();
 	}
 
-	public function index()
+	public function index($username = null)
 	{
-
+	    if ($username === null)
+	        $username = $_SESSION['username'];
+	    $data['user'] = $this->model->getUserData($username);
+	    $data['posts'] = $this->model->getUserPosts($username);
+        $this->view->render('user_page', $data);
 	}
 
 	public function activate($data)

@@ -30,4 +30,27 @@ class UserModel extends Model
 			return false;
 		}
 	}
+
+	public function getUserData($username)
+    {
+        $request = "SELECT `login`, `fullname`, `avatar`, `description`
+                    FROM `users`
+                    WHERE `login`= \"$username\"";
+        $select = $this->database->prepare($request);
+        $select->execute();
+        return $select->fetch(2);
+    }
+
+    public function getUserPosts($username)
+    {
+        $request = "SELECT `post_id`, `img_id`, `users`.`login`
+                    FROM `users`
+                    LEFT JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
+                    WHERE (`users`.`login`=\"$username\")
+                    ORDER BY `post_id`
+                    DESC";
+        $select = $this->database->prepare($request);
+        $select->execute();
+        return $select->fetchAll(2);
+    }
 }
