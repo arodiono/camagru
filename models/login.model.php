@@ -23,6 +23,11 @@ class LoginModel extends Model
 					WHERE `email` = \"$email\"");
 		$request->execute();
 
+		if ($request->rowCount() == 0)
+        {
+            Session::add('errorMessage', 'Incorrect email or password.');
+            return false;
+        }
 		$data = $request->fetch();
 		if ($data->active != 1)
 		{

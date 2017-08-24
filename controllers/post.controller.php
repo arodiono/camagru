@@ -23,4 +23,10 @@ class PostController extends Controller
         $result = $this->model->addComment();
         echo json_encode($result);
     }
+
+    public function add()
+    {
+        $data['title'] = 'Upload new photo';
+        $this->view->render('add_post', $data);
+    }
 }
