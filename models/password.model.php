@@ -96,8 +96,10 @@ class PasswordModel extends Model
 			return false;
 	}
 
-	public function validateMailAndHash($email, $hash)
+	public function validateMailAndHash($email = null, $hash = null)
     {
+        if ($email === null || $hash === null)
+            return false;
         $request = "SELECT `email`, `hash`
                     FROM `users`
 					WHERE `email` = \"$email\"

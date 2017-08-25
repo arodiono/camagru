@@ -20,7 +20,7 @@ class Route
         {
             $user = $this->controller;
             $this->controller = new UserController();
-            $this->controller->index($user);
+            $this->controller->index($user, $this->action);
         }
 		elseif (file_exists(APP . 'controllers/' . $this->controller . '.controller.php'))
 		{

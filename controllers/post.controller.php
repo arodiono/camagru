@@ -8,10 +8,11 @@ class PostController extends Controller
         $this->model = new PostsModel();
     }
 
-//    public function index()
-//    {
-//
-//    }
+    public function index()
+    {
+        $data['title'] = 'Upload new photo';
+        $this->view->render('add_post', $data);
+    }
     public function like()
     {
         $result = $this->model->prepareLike();

@@ -33,7 +33,7 @@ class UserModel extends Model
 
 	public function getUserData($username)
     {
-        $request = "SELECT `login`, `fullname`, `avatar`, `description`
+        $request = "SELECT `login`, `fullname`, `email`, `hash`, `avatar`, `description`
                     FROM `users`
                     WHERE `login`= \"$username\"";
         $select = $this->database->prepare($request);
@@ -43,7 +43,7 @@ class UserModel extends Model
 
     public function getUserPosts($username)
     {
-        $request = "SELECT `post_id`, `img_id`, `users`.`login`
+        $request = "SELECT `posts`.`post_id`, `posts`.`img_id`, `posts`.`description`, `users`.`login`
                     FROM `users`
                     LEFT JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
                     WHERE (`users`.`login`=\"$username\")

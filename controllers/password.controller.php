@@ -20,9 +20,9 @@ class PasswordController extends Controller
 		$this->view->renderNotification();
 	}
 
-	public function reset($data)
+	public function reset($data = null)
 	{
-        if ($data == null)
+        if (!isset($data[0]) || !isset($data[1]))
 		{
 			Session::add('errorMessage', 'Link is not valid');
 			$this->view->renderNotification();

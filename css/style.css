@@ -24,8 +24,9 @@ body {
 	font-size: 1rem;
 	font-weight: 300;
 	line-height: 1.5;
-	color: #1f2f3d;
+	color: #333;
 	background-color: #fafafa;
+	transition: all 500ms ease-in-out;
 }
 
 article, aside, footer, header, nav, section {
@@ -248,6 +249,7 @@ h6, .h6 {
 	padding-left: 15px;
 	width: 100%;
 	max-width: 600px;
+	transition: ease-out .5s;
 }
 
 .row {
@@ -703,8 +705,9 @@ nav {
 }
 
 .profile {
-	/*background: #fff;*/
-	margin: 0 -15px;
+	background: #fafafa;
+	display: flex;
+	border: none;
 }
 
 .profile-header {
@@ -713,47 +716,45 @@ nav {
 }
 
 .profile-info {
-	padding: 15px 30px;
-}
-
-.profile-img-box {
-	width: 30%;
+	padding: 15px 0 0 30px;
 }
 
 .profile-img {
-	width: auto;
-	height: auto;
+	width: 30%;
+}
+
+.profile-img img {
 	max-width: 100%;
 	max-height: 100%;
 	border-radius: 50%;
 }
 
 .profile-posts {
-	margin-left: auto;
-	margin-right: auto;
-	box-sizing: border-box;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-}
+	 margin-left: auto;
+	 margin-right: auto;
+	 box-sizing: border-box;
+	 display: flex;
+	 flex-wrap: wrap;
+	 align-content: flex-start;
+	 justify-content: space-around;
+ }
 
 .profile-post-box {
-	overflow: hidden;
-	margin: .5px;
-	width: 199px;
-	height: 199px;
-}
-
-.profile-post-box img {
-	width: auto;
+	width: 33%;
 	height: auto;
-	max-height: 100%;
+	overflow: hidden;
 }
 
-.profile-post-box img:hover {
+.profile-post-box figure {
+	margin: 0;
+	transition: ease-out 1s;
+}
+.profile-post-box figure:hover {
 	transform: scale(1.05);
-	transition: all 0.5s ease-out;
-	overflow: hidden;
+	transition: ease-out .5s;
+}
+.profile-post-box img {
+	width: 100%;
 }
 
 header {
@@ -762,6 +763,88 @@ header {
 	border-bottom: 1px solid #efefef;
 
 }
+
+.hidden {
+	display: none;
+}
+
+.dropdown-menu {
+	transition: all 500ms ease-in-out;
+}
+
+.dropdown-menu a {
+	padding: 10px 15px;
+	display: block;
+	text-align: right;
+}
+
+.dropdown-menu a:hover {
+	background-color: #efefef;
+}
+
+input:disabled {
+	background: #fafafa;
+}
+
+.user-config a {
+	text-align: center;
+	margin: 10px 0;
+}
+.user-config-form {
+	padding: 0 15px;
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+	max-width: 400px;
+	margin-top: 50px;
+}
+
+.user-config-form input::-webkit-input-placeholder {
+	font-size: 0.9rem;
+	color: #333;
+}
+
+
+
+
+#menu {
+	cursor: pointer;
+	padding: 10px 35px 16px 0px;
+}
+#menu span, #menu span:before, #menu span:after {
+	cursor: pointer;
+	border-radius: 1px;
+	height: 2px;
+	width: 24px;
+	background: #333;
+	position: absolute;
+	display: block;
+	content: '';
+}
+#menu span:before {
+	top: -8px;
+}
+#menu span:after {
+	bottom: -8px;
+}
+
+#menu span, #menu span:before, #menu span:after {
+	transition: all 500ms ease-in-out;
+}
+#menu.active span {
+	background-color: transparent;
+}
+#menu.active span:before, #menu.active span:after {
+	top: 0;
+}
+#menu.active span:before {
+	transform: rotate(45deg);
+}
+#menu.active span:after {
+	transform: rotate(-45deg);
+}
+
+
 @media screen and (max-width: 425px) {
 	nav {
 		padding: 10px 15px;

@@ -12,12 +12,24 @@ class PostsModel extends Model
 
     }
 
+    public function getPost($post_id)
+    {
+        $request = "SELECT `posts`.`post_id`, `posts`.`img_id`, `posts`.`description`, `posts`.`date`, `posts`.`likes`, `users`.`login`, `users`.`avatar` 
+                    FROM `users`
+                    INNER JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
+                    WHERE (`posts`.`post_id`=\"$post_id\")";
+        $select = $this->database->prepare($request);
+        $select->execute();
+        $post = $select->fetchAll(2);
+        $post['comments'] = $this->getComments($post_id);
+        return $post;
+    }
     public function getComments($post)
     {
         $request = "SELECT `comments`.`text`, `comments`.`date`, `users`.`login`
                     FROM `users`
                     LEFT JOIN `comments` ON `comments`.`user_id` = `users`.`user_id`
-                    WHERE (`comments`.`post_id`=$post)
+                    WHERE (`comments`.`post_id`=\"$post\")
                     ORDER BY `comments`.`comment_id`
                     ASC";
         $select = $this->database->prepare($request);
