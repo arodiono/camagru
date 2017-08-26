@@ -1,39 +1,124 @@
-<video style="width: 100%;"></video>
-<script>
-    'use strict';
-    var constraints = { audio: false, video: { width: 600, height: 600 } };
+<div class="content">
+    <video autoplay></video>
+    <div class="post-upload">
+        <p>Drag file here or click to upload</p>
+    </div>
+    <div class="output"></div>
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+    <div class="modal">
+        <div class="modal-content">
+            <canvas class="canvas"></canvas>
+            <div class="modal-actions">
+                <a href="#" class="exit">< Cancel</a>
+                <a href="#" class="next">Next ></a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function() {
             var video = document.querySelector('video');
-            video.srcObject = mediaStream;
-            video.onloadedmetadata = function(e) {
-                video.play();
-            };
-        })
-        .catch(function(err) { console.log(err.name + ": " + err.message); });
+            var canvas = document.querySelector('canvas');
+            var modal = document.querySelector('.modal');
 
-    var capture = function() {
+            function takeSnapshot() {
+                var img = document.querySelector('img') || document.createElement('img');
+                var context;
+                var width = video.offsetWidth;
+                var height = video.offsetHeight;
 
-        if (!mediaStream) {
-            return;
+                var exit = document.querySelector('.exit');
+
+
+                canvas = canvas || document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, width, height);
+
+                img.src = canvas.toDataURL('image/png');
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                exit.onclick = function() {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                }
+            }
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function(stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    video.addEventListener('click', takeSnapshot);
+                })
+                .catch(function(error) {
+                    var content = document.querySelector('.content');
+                    var div = document.createElement('div');
+                    div.classList.add('text-center');
+                    div.innerHTML = 'Could not access the camera. Error: ' + error.name;
+                    content.insertBefore(div, content.firstChild);
+                    video.style.display = 'none';
+                });
         }
+        })();
+        (function(window) {
+            function triggerCallback(e, callback) {
+                if(!callback || typeof callback !== 'function') {
+                    return;
+                }
+                var files;
+                if(e.dataTransfer) {
+                    files = e.dataTransfer.files;
+                } else if(e.target) {
+                    files = e.target.files;
+                }
+                callback.call(null, files);
+            }
+            function makeDroppable(ele, callback) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.style.display = 'none';
+                input.addEventListener('change', function(e) {
+                    triggerCallback(e, callback);
+                });
+                ele.appendChild(input);
 
-        var video = document.querySelector('video');
-        var canvas      = document.getElementById('canvasTag');
-        canvas.removeEventListener('click', savePhoto);
-        var videoWidth  = video.videoWidth;
-        var videoHeight = video.videoHeight;
+                ele.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    ele.classList.add('dragover');
+                });
 
-        if (canvas.width !== videoWidth || canvas.height !== videoHeight) {
-            canvas.width  = videoWidth;
-            canvas.height = videoHeight;
-        }
+                ele.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    ele.classList.remove('dragover');
+                });
 
-        var ctx    = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        photoReady = true;
-        document.getElementById('photoViewText').innerHTML = 'Click or tap below to save as .jpg';
-        canvas.addEventListener('click', savePhoto);
+                ele.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    ele.classList.remove('dragover');
+                    triggerCallback(e, callback);
+                });
 
-    };
-</script>
+                ele.addEventListener('click', function() {
+                    input.value = null;
+                    input.click();
+                });
+            }
+            window.makeDroppable = makeDroppable;
+        })(this);
+        (function(window) {
+            makeDroppable(window.document.querySelector('.post-upload'), function(files) {
+                console.log(files);
+                var output = document.querySelector('.output');
+                output.innerHTML = '';
+                    if(files[0].type.indexOf('image/') === 0) {
+                        output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[0]) + '" />';
+                    }
+                    output.innerHTML += '<p>'+files[0].name+'</p>';
+            });
+        })(this);
+    </script>
+</div>

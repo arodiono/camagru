@@ -32,6 +32,9 @@ class UserController extends Controller
 
 	public function config()
     {
+        if (!Session::isLoggedOnUser()) {
+            header('Location: /login');
+        }
         $data['user'] = $this->model->getUserData($_SESSION['username']);
         $data['title'] = 'Edit profile';
         $this->view->render('user_config', $data);

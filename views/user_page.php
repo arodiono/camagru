@@ -1,4 +1,5 @@
-<header class="profile">
+<div class="content">
+<div class="profile">
     <div class="col-4 profile-img">
         <?php if($user['avatar'] !== null): ?>
         <img src="/uploads/<?=$user['login']?>/<?=$user['avatar']?>.jpg" alt="">
@@ -14,7 +15,7 @@
 <!--    --><?php //if (Session::isLoggedOnUser() && $user['login'] === $_SESSION['username']):?>
 <!--        <a href="/user/config"><i class="icon icon-cog"></i></a>-->
 <!--    --><?php //endif; ?>
-</header>
+</div>
 <div class="profile-posts">
 <?php
     foreach ($posts as $post)
@@ -23,4 +24,5 @@
         include 'views/template/profile_post.php';
     }
 ?>
+</div>
 </div>

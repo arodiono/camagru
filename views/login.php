@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <script src="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>js/registration.js"></script>
+<!--    <script src="--><?//='//' . $_SERVER['HTTP_HOST'] . '/' ?><!--js/registration.js"></script>-->
 </div>
 </body>
 </html>

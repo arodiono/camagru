@@ -1,4 +1,5 @@
 <?php extract($user) ?>
+<div class="content">
 <div class="user-config">
     <div class="profile-img center-block">
         <?php if($_SESSION['avatar'] != null): ?>
@@ -8,7 +9,8 @@
         <?php endif; ?>
         <a class="center-block" href="">Change photo</a>
     </div>
-    <form class="user-config-form" action="javascript:void(null);">
+    <div class="user-config-form">
+    <form action="javascript:void(null);">
         <div class="form-group">
             <label for="login">Username</label>
             <input class="form-control" name="login" type="text" disabled placeholder="<?=$login?>">
@@ -21,8 +23,15 @@
             <label for="fullname">Bio</label>
             <input class="form-control" name="description" type="text" placeholder="<?=$description?>">
         </div>
-        <button class="btn btn-default" type="submit">Done</button>
+        <button class="btn btn-default  btn-inline" type="submit">Done</button>
     </form>
-    <a class="btn btn-default" href="/password/reset/<?=$email?>/<?=$hash?>">Change pass</a>
 
+    <div class="user-config-actions">
+        <a class="btn btn-default btn-inline" href="/password/reset/<?=$email?>/<?=$hash?>">Change password</a>
+        <form action="javascript:void(null);">
+            <button class="btn btn-default btn-inline">Delete profile</button>
+        </form>
+    </div>
+    </div>
+</div>
 </div>

@@ -36,8 +36,9 @@
     </div>
     </div>
     <div class="post-footer-form">
-        <form class="comment-form" name="comment-post_<?=$post_id?>" action="javascript:void(null);" onsubmit="sendComment(<?=$post_id?>)">
+        <form class="post-comment-form" name="comment-post_<?=$post_id?>" action="javascript:void(null);" onsubmit="sendComment(<?=$post_id?>)">
             <input class="post-comment-input" type="text" name="comment" placeholder="Add a comment...">
+            <button class="post-comment-btn" type="submit">Send</button>
         </form>
     </div>
 </article>
