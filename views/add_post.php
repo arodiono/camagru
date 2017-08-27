@@ -26,9 +26,8 @@
                 var context;
                 var width = video.offsetWidth;
                 var height = video.offsetHeight;
-
                 var exit = document.querySelector('.exit');
-
+                var next = document.querySelector('.next');
 
                 canvas = canvas || document.createElement('canvas');
                 canvas.width = width;
@@ -41,9 +40,22 @@
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 exit.onclick = function() {
-                        modal.style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                }
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                };
+                next.onclick = function () {
+                    var ajax = new XMLHttpRequest();
+                    var data = new FormData();
+                    data.append('img', img.src);
+                    ajax.open('POST', '/post/edit', false);
+                    ajax.send(data);
+                    ajax.onreadystatechange = function () {
+                        if (ajax.status == 4)
+                        {
+                            console.log('ok');
+                        }
+                    }
+                };
             }
         if (navigator.mediaDevices) {
             navigator.mediaDevices.getUserMedia({video: true})

@@ -30,4 +30,11 @@ class PostController extends Controller
         $data['title'] = 'Upload new photo';
         $this->view->render('add_post', $data);
     }
+
+    public function edit()
+    {
+
+        $data['title'] = 'Edit';
+        $this->view->render('post_edit', $data);
+    }
 }
