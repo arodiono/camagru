@@ -4,7 +4,7 @@ function setLike(post_id)
     var data = new FormData();
     data.append('post_id', post_id);
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'post/like', true);
+    xhr.open('POST', '/post/like', true);
     xhr.send(data);
     xhr.onreadystatechange = function()
     {
@@ -28,7 +28,7 @@ function sendComment(post_id)
     }
     var xhr = new XMLHttpRequest();
     data.append('post_id', post_id);
-    xhr.open('POST', 'post/comment', true);
+    xhr.open('POST', '/post/comment', true);
     xhr.send(data);
     xhr.onreadystatechange = function()
     {

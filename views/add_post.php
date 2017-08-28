@@ -1,20 +1,22 @@
 <div class="content">
-    <video autoplay></video>
-    <div class="post-upload">
-        <p>Drag file here or click to upload</p>
-    </div>
-    <div class="output"></div>
+    <form method="post" action="/post/edit/">
+        <input name="img" class="input" hidden>
+        <video autoplay></video>
+        <div class="post-upload">
+            <p>Drag file here or click to upload</p>
+        </div>
+        <div class="output"></div>
 
-    <div class="modal">
-        <div class="modal-content">
-            <canvas class="canvas"></canvas>
-            <div class="modal-actions">
-                <a href="#" class="exit">< Cancel</a>
-                <a href="#" class="next">Next ></a>
+        <div class="modal">
+            <div class="modal-content">
+                <canvas class="canvas"></canvas>
+                <div class="modal-actions">
+                    <a href="#" class="exit">< Cancel</a>
+                    <a href="#" class="next">Next ></a>
+                </div>
             </div>
         </div>
-    </div>
-
+    </form>
     <script type="text/javascript">
         (function() {
             var video = document.querySelector('video');
@@ -44,17 +46,10 @@
                     document.body.style.overflow = 'auto';
                 };
                 next.onclick = function () {
-                    var ajax = new XMLHttpRequest();
-                    var data = new FormData();
-                    data.append('img', img.src);
-                    ajax.open('POST', '/post/edit', false);
-                    ajax.send(data);
-                    ajax.onreadystatechange = function () {
-                        if (ajax.status == 4)
-                        {
-                            console.log('ok');
-                        }
-                    }
+                    var form = document.querySelector('form');
+                    var input = document.querySelector('.input');
+                    input.value = img.src;
+                    form.submit();
                 };
             }
         if (navigator.mediaDevices) {
@@ -123,14 +118,22 @@
         })(this);
         (function(window) {
             makeDroppable(window.document.querySelector('.post-upload'), function(files) {
-                console.log(files);
-                var output = document.querySelector('.output');
-                output.innerHTML = '';
-                    if(files[0].type.indexOf('image/') === 0) {
-                        output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[0]) + '" />';
-                    }
-                    output.innerHTML += '<p>'+files[0].name+'</p>';
+                var reader = new FileReader;
+                reader.readAsDataURL(files[0]);
+                reader.onloadend = function () {
+                    var form = document.querySelector('form');
+                    var input = document.querySelector('.input');
+                    input.value = reader.result;
+                    form.submit();
+                };
+//                var output = document.querySelector('.output');
+//                output.innerHTML = '';
+//                    if(files[0].type.indexOf('image/') === 0) {
+//                        output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[0]) + '" />';
+//                    }
+//                    output.innerHTML += '<p>'+files[0].name+'</p>';
             });
         })(this);
+
     </script>
 </div>

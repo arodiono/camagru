@@ -2,7 +2,7 @@
 
 class Model
 {
-	public static $database;
+	public $database;
 
 	function __construct()
 	{

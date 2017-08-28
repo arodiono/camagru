@@ -33,8 +33,10 @@ class PostController extends Controller
 
     public function edit()
     {
-
+        $image = new ImgModel();
+        $img_id = $image->save();
         $data['title'] = 'Edit';
+        $data['img_id'] = $img_id;
         $this->view->render('post_edit', $data);
     }
 }

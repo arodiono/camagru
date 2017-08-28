@@ -8,12 +8,12 @@
         <a class="post-username" href="/<?=$login?>"><?=$login?></a>
     </div>
     <div class="post-img-box">
-        <img class="post-img" src="/uploads/<?=$login . '/' . $img_id . '.jpg' ?>" alt="">
+        <img class="post-img" src="/uploads/<?=$login . '/' . $img_id . '.png' ?>" alt="">
     </div>
     <div class="post-footer">
         <div class="post-footer-actions">
-            <i class="icon icon-heart red" onclick="setLike(<?=$post_id . PHP_EOL?>)"></i>
-            <i class="icon icon-comment" onclick="setFocusInput(<?=$post_id . PHP_EOL?>)"></i>
+            <i class="icon icon-heart red" onclick="setLike(<?=$post_id?>)"></i>
+            <i class="icon icon-comment" onclick="setFocusInput(<?=$post_id?>)"></i>
             <i class="icon icon-paper-plane"></i>
         </div>
         <?php
