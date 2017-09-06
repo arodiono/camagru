@@ -1,18 +1,20 @@
 "use strict";
+var form = document.getElementById('signup');
+form.addEventListener('submit', sendRequest);
 function sendRequest()
 {
 	removeAlert();
-	var request = new XMLHttpRequest();
+	var ajax = new XMLHttpRequest();
 	var data = new FormData(document.forms.registration);
 	var message = "<div class=\"alert alert-danger\"><strong>Warning! </strong> All fields must not be empty</div>";
-	if (!data.get("login") || !data.get("email")
+	if (!data.get("username") || !data.get("email")
 		|| !data.get("password") || !data.get("passwordConfirm")) {
 		renderAlert(message);
 		return;
 	}
-	request.open('POST', 'signup/validateFormInput', true);
-	request.send(data);
-	request.onreadystatechange = function() {
+	ajax.open('POST', 'signup/validateFormInput', true);
+	ajax.send(data);
+	ajax.onreadystatechange = function() {
 		if (this.readyState != 4)
 			return;
 		if (this.status != 200 && this.status != 201) {
@@ -33,7 +35,6 @@ function renderAlert(body) {
 	container.insertBefore(div, container.firstChild);
 }
 function removeAlert() {
-	var container = document.querySelector(".form");
 	var alert = document.querySelector(".alert");
 	if (alert)
 		alert.remove();

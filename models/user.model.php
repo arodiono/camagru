@@ -14,8 +14,8 @@ class UserModel extends Model
 		$hash = $data[1];
 		$request = "UPDATE `users`
 					SET `active` = 1
-					WHERE `email` = \"$email\"
-					AND `hash` = \"$hash\"";
+					WHERE `email` = $email
+					AND `hash` = $hash";
 		$update = $this->database->prepare($request);
 		$update->execute();
 		$count = $update->rowCount();
@@ -31,11 +31,39 @@ class UserModel extends Model
 		}
 	}
 
+	public function editUser($user_id, $fullname, $biography)
+    {
+        $request = "UPDATE `users`
+                    SET `fullname` = '$fullname', `biography` = '$biography'
+                    WHERE `user_id` = '$user_id'";
+        $update = $this->database->prepare($request);
+        $update->execute();
+        $count = $update->rowCount();
+        if ($count == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public function editProfilePicture($user_id, $filename)
+    {
+        $request = "UPDATE `users`
+                    SET `profile_picture` = '$filename'
+                    WHERE `user_id` = '$user_id'";
+        $update = $this->database->prepare($request);
+        $update->execute();
+        $count = $update->rowCount();
+        if ($count == 1)
+            return true;
+        else
+            return false;
+    }
+
 	public function getUserData($username)
     {
-        $request = "SELECT `login`, `fullname`, `email`, `hash`, `avatar`, `description`
+        $request = "SELECT `username`, `fullname`, `email`, `hash`, `profile_picture`, `biography`
                     FROM `users`
-                    WHERE `login`= \"$username\"";
+                    WHERE `username` = '$username'";
         $select = $this->database->prepare($request);
         $select->execute();
         return $select->fetch(2);
@@ -43,10 +71,10 @@ class UserModel extends Model
 
     public function getUserPosts($username)
     {
-        $request = "SELECT `posts`.`post_id`, `posts`.`img_id`, `posts`.`description`, `users`.`login`
+        $request = "SELECT `posts`.`post_id`, `posts`.`thumbnail`, `posts`.`caption`, `users`.`username`
                     FROM `users`
-                    LEFT JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
-                    WHERE (`users`.`login`=\"$username\")
+                    INNER JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
+                    WHERE (`users`.`username` = '$username')
                     ORDER BY `post_id`
                     DESC";
         $select = $this->database->prepare($request);

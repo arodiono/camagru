@@ -14,9 +14,9 @@
             <h1 class="text-center">Camagru</h1>
             <p class="text-center">Sign up to see photos from your friends</p>
             <div class="form">
-                <form method="post" name="registration" action="javascript:void(null);" onsubmit="sendRequest()">
+                <form method="post" name="registration" action="javascript:void(null);" id="signup">
                     <div class="form-group">
-                        <input id="login" class="form-control" type="text" name="login" placeholder="Username" autofocus="">
+                        <input id="login" class="form-control" type="text" name="username" placeholder="Username" autofocus="">
                     </div>
                     <div class="form-group">
                         <input id="fullname" class="form-control" type="text" name="fullname" placeholder="Full name" autofocus="">

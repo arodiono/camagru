@@ -9,7 +9,7 @@ class SignupModel extends Model
 
 	public function validateFormInput()
 	{
-		$login = $_POST['login'];
+		$username = $_POST['username'];
 		$fullname = $_POST['fullname'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
@@ -24,7 +24,7 @@ class SignupModel extends Model
 			Session::add('errorMessage', 'Invalid email address');
 			return false;
 		}
-		if ( $this->isUserExist($login) )
+		if ( $this->isUserExist($username) )
 		{
 			Session::add('errorMessage', 'Username already exist');
 			return false;
@@ -34,7 +34,7 @@ class SignupModel extends Model
 			Session::add('errorMessage', 'User email already exist');
 			return false;
 		}
-		return array('login' => $login, 'fullname' => $fullname, 'email' => $email, 'password' => $password);
+		return array('username' => $username, 'fullname' => $fullname, 'email' => $email, 'password' => $password);
 	}
 
 	public function addNewUser($data)
@@ -43,12 +43,12 @@ class SignupModel extends Model
 		$passwordHash = password_hash($password, PASSWORD_BCRYPT);
 		$activationHash = hash('md5', uniqid(rand(), true));
 
-		if ( !$this->writeNewUser($login, $fullname, $passwordHash, $email, $activationHash) )
+		if ( !$this->writeNewUser($username, $fullname, $passwordHash, $email, $activationHash) )
 		{
 			Session::add('errorMessage', 'Registration failed. Please try again later');
 			return false;
 		}
-		if ( !$this->sendActivationMail($login, $email, $activationHash) )
+		if ( !$this->sendActivationMail($username, $email, $activationHash) )
 		{
 			Session::add('errorMessage', 'Error when sending a mail with an activation code. Please try again later');
 			return false;
@@ -57,11 +57,11 @@ class SignupModel extends Model
 		return true;
 	}
 
-	public function isUserExist($login)
+	public function isUserExist($username)
 	{
-		$request = $this->database->prepare("SELECT `login`
+		$request = $this->database->prepare("SELECT `username`
 								FROM `users`
-								WHERE `login`=\"$login\"");
+								WHERE `username`=\"$username\"");
 		$request->execute();
 		if ( empty( $request->fetch() ) )
 			return false;
@@ -96,10 +96,10 @@ class SignupModel extends Model
 		return true;
 	}
 
-	private function writeNewUser($login, $fullname, $password, $email, $hash)
+	private function writeNewUser($username, $fullname, $password, $email, $hash)
 	{
-		$data = array($login, $fullname, $password, $email, $hash);
-		$request = "INSERT INTO `users`(`login`, `fullname`, `password`, `email`, `hash`)
+		$data = array($username, $fullname, $password, $email, $hash);
+		$request = "INSERT INTO `users`(`username`, `fullname`, `password`, `email`, `hash`)
 					VALUES(?, ?, ?, ?, ?)";
 		$insert = $this->database->prepare($request);
 		$insert->execute($data);
@@ -111,7 +111,7 @@ class SignupModel extends Model
 			return false;
 	}
 
-	private function sendActivationMail($login, $email, $hash)
+	private function sendActivationMail($username, $email, $hash)
 	{
 		$link = 'http://' . $_SERVER['HTTP_HOST'] . '/user/activate/' . $email . '/'. $hash . '/';
 

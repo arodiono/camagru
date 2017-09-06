@@ -13,6 +13,16 @@ catch (Exception $e)
 
 try
 {
+    $create = $db->prepare("CREATE DATABASE IF NOT EXISTS db_camagru00");
+    $create->execute();
+}
+catch (Exception $e)
+{
+    echo "Error! Can`t create database";
+}
+
+try
+{
 	$insert = $db->prepare("CREATE TABLE `users` (
                                           `user_id` int(11) NOT NULL AUTO_INCREMENT,
                                           `active` int(1) unsigned NOT NULL DEFAULT '0',

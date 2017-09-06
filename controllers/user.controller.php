@@ -2,6 +2,10 @@
 
 class UserController extends Controller
 {
+    protected $user_id;
+    protected $username;
+    protected $fullname;
+    protected $biography;
 
 	public function __construct()
 	{
@@ -25,7 +29,7 @@ class UserController extends Controller
         {
             $post = new PostsModel();
             $data['post'] = $post->getPost($post_id);
-            $data['title'] = '@' . $username . ' | ' . $data['post'][0]['description'];
+            $data['title'] = '@' . $username . ' | ' . $data['post'][0]['caption'];
             $this->view->render('post', $data);
         }
 	}
@@ -38,6 +42,36 @@ class UserController extends Controller
         $data['user'] = $this->model->getUserData($_SESSION['username']);
         $data['title'] = 'Edit profile';
         $this->view->render('user_config', $data);
+    }
+
+    public function edit()
+    {
+        if (empty($_POST)) {
+            return;
+        }
+        $this->user_id = $_SESSION['user_id'];
+        $this->fullname = $_POST['fullname'];
+        $this->biography = $_POST['biography'];
+
+        $result = $this->model->editUser($this->user_id, $this->fullname, $this->biography);
+        if ($result)
+            echo '<div class="alert alert-success">User data updated successfully</div>';
+        else
+            echo '<div class="alert alert-danger">User data not updated</div>';
+        unset($_POST);
+    }
+
+    public function changePhoto()
+    {
+        if (empty($_POST)) {
+            return;
+        }
+        $file = $_POST['img'];
+        $image = new ImgModel();
+        $filename = $image->save($file);
+        $user_id   = $_SESSION['user_id'];
+        $this->model->editProfilePicture($user_id, $filename);
+        header('Location: config');
     }
 
 	public function activate($data)

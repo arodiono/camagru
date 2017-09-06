@@ -7,26 +7,31 @@ class PostsModel extends Model
         parent::__construct();
     }
 
-    public function index()
+    public function     addPost($filename)
     {
-
+        $user_id    = $_SESSION['user_id'];
+        $request    = "INSERT INTO `posts` (`user_id`, `thumbnail`)
+                       VALUES (\"$user_id\", \"$filename\")";
+        $insert = $this->database->prepare($request);
+        $insert->execute();
     }
 
-    public function getPost($post_id)
+    public function     getPost($post_id)
     {
-        $request = "SELECT `posts`.`post_id`, `posts`.`img_id`, `posts`.`description`, `posts`.`date`, `posts`.`likes`, `users`.`login`, `users`.`avatar` 
+        $request = "SELECT `posts`.`post_id`, `posts`.`thumbnail`, `posts`.`caption`, `posts`.`created_time`, `posts`.`count`, `users`.`username`, `users`.`profile_picture` 
                     FROM `users`
                     INNER JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
                     WHERE (`posts`.`post_id`=\"$post_id\")";
         $select = $this->database->prepare($request);
         $select->execute();
         $post = $select->fetchAll(2);
-        $post['comments'] = $this->getComments($post_id);
+        $post[0]['comments'] = $this->getComments($post_id);
         return $post;
     }
-    public function getComments($post)
+
+    public function     getComments($post)
     {
-        $request = "SELECT `comments`.`text`, `comments`.`date`, `users`.`login`
+        $request = "SELECT `comments`.`text`, `comments`.`created_time`, `users`.`username`
                     FROM `users`
                     LEFT JOIN `comments` ON `comments`.`user_id` = `users`.`user_id`
                     WHERE (`comments`.`post_id`=\"$post\")
@@ -37,13 +42,13 @@ class PostsModel extends Model
         return $select->fetchAll(2);
     }
 
-    public function getLastPosts()
+    public function     getLastPosts($offset)
     {
-        $request = "SELECT `posts`.`post_id`, `posts`.`img_id`, `posts`.`description`, `posts`.`date`, `posts`.`likes`, `users`.`login`, `users`.`avatar` 
+        $request = "SELECT `posts`.`post_id`, `posts`.`thumbnail`, `posts`.`caption`, `posts`.`created_time`, `posts`.`count`, `users`.`username`, `users`.`profile_picture` 
                     FROM `users`
                     INNER JOIN `posts` ON `posts`.`user_id` = `users`.`user_id`
                     ORDER BY `post_id`
-                    DESC LIMIT 5";
+                    DESC LIMIT 10 OFFSET $offset";
         $select = $this->database->prepare($request);
         $select->execute();
         $comments = $select->fetchAll(2);
@@ -54,7 +59,7 @@ class PostsModel extends Model
         return $comments;
     }
 
-    private function issetLike($post, $user)
+    private function    issetLike($post, $user)
     {
         $request = "SELECT *
                     FROM `likes`
@@ -68,7 +73,7 @@ class PostsModel extends Model
             return false;
     }
 
-    private function countLikes($post)
+    private function    countLikes($post)
     {
         $request = "SELECT *
                     FROM `likes`
@@ -78,17 +83,17 @@ class PostsModel extends Model
         return $select->rowCount();
     }
 
-    private function updateLikesCounter($post)
+    private function    updateLikesCounter($post)
     {
         $likes = $this->countLikes($post);
         $request = "UPDATE `posts`
-                    SET `likes`=$likes
+                    SET `count`=$likes
                     WHERE `post_id`=$post";
         $insert = $this->database->prepare($request);
         $insert->execute();
     }
 
-    private function setLike($post, $user)
+    private function    setLike($post, $user)
     {
         $request = "INSERT INTO `likes` (`user_id`, `post_id`)
                     VALUES ($user, $post)";
@@ -96,7 +101,7 @@ class PostsModel extends Model
         $insert->execute();
     }
 
-    private function deleteLike($post, $user)
+    private function    deleteLike($post, $user)
     {
         $request = "DELETE
                     FROM `likes`
@@ -106,7 +111,7 @@ class PostsModel extends Model
         $select->execute();
     }
 
-    public function prepareLike()
+    public function     prepareLike()
     {
         $post_id = $_POST['post_id'];
         $user_id = $_SESSION['user_id'];
@@ -127,23 +132,23 @@ class PostsModel extends Model
         return $this->countLikes($post_id);
     }
 
-    public function addComment()
+    public function     addComment()
     {
         $post_id = $_POST['post_id'];
-        $comment = $_POST['comment'];
+        $text = $_POST['text'];
         $author = $_SESSION['user_id'];
-        $date = date('Y-m-d H-i-s');
+        $created_time = time();
 
-        if (!empty($comment) && !empty($post_id) && !empty($author))
+        if (!empty($text) && !empty($post_id) && !empty($author))
         {
-            $data = array($author, $post_id, $comment, $date);
-            $request = "INSERT INTO `comments` (`user_id`, `post_id`, `text`, `date`)
+            $data = array($author, $post_id, $text, $created_time);
+            $request = "INSERT INTO `comments` (`user_id`, `post_id`, `text`, `created_time`)
                         VALUES (?, ?, ?, ?)";
             $insert = $this->database->prepare($request);
             $insert->execute($data);
             $count = $insert->rowCount();
             if ($count == 1)
-                return array('post_id' => $post_id, 'comment' => $comment, 'author' => $_SESSION['username'], 'date' => $date);
+                return array('post_id' => $post_id, 'text' => $text, 'username' => $_SESSION['username'], 'created_time' => $created_time);
             else
                 return false;
         }

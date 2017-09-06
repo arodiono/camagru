@@ -1,8 +1,14 @@
 <div class="content">
-<?php foreach ($posts as $item)
+
+<?php
+if (!empty($posts))
+{
+    foreach ($posts as $item)
     {
         extract($item);
         include 'views/template/main_post.php';
     }
+}
+
 ?>
 </div>

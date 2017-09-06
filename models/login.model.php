@@ -43,8 +43,8 @@ class LoginModel extends Model
 		{
 			Session::set('logged_on_user', true);
             Session::set('user_id', $data->user_id);
-            Session::set('username', $data->login);
-            Session::set('avatar', $data->avatar);
+            Session::set('username', $data->username);
+            Session::set('profile_picture', $data->profile_picture);
             return true;
 		}
 	}

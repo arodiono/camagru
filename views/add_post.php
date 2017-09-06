@@ -126,14 +126,7 @@
                     input.value = reader.result;
                     form.submit();
                 };
-//                var output = document.querySelector('.output');
-//                output.innerHTML = '';
-//                    if(files[0].type.indexOf('image/') === 0) {
-//                        output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[0]) + '" />';
-//                    }
-//                    output.innerHTML += '<p>'+files[0].name+'</p>';
             });
         })(this);
-
     </script>
 </div>

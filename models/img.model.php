@@ -7,21 +7,16 @@ class ImgModel extends Model
         parent::__construct();
     }
 
-    public function save()
+    public function save($img)
     {
-        if (isset($_POST['img']))
-        {
-            $user_id = $_SESSION['user_id'];
-            $path = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR;
-            $filename = hash('md5', uniqid(rand(), true));
-            $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['img']));
-            file_put_contents($path . $filename . '.png', $file);
-            $request = "INSERT INTO `posts` (`user_id`, `img_id`)
-                    VALUES (\"$user_id\", \"$filename\")";
-            $insert = $this->database->prepare($request);
-            $insert->execute();
-            unset($_POST);
-            return $filename;
-        }
+        $file       = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $img));
+        $filename   = hash('md5', uniqid(rand(), true));
+        $path       = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR;
+
+        if (!is_dir($path))
+            mkdir($path);
+        file_put_contents($path . $filename . '.png', $file);
+
+        return $filename;
     }
 }
