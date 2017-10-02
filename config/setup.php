@@ -2,6 +2,16 @@
 
 require_once 'config.php';
 
+//try
+//{
+//    $create = $db->prepare("CREATE DATABASE IF NOT EXISTS db_camagru00");
+//    $create->execute();
+//}
+//catch (Exception $e)
+//{
+//    echo "Error! Can`t create database";
+//}
+
 try
 {
 	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -11,15 +21,7 @@ catch (Exception $e)
 	echo "Error! Can`t connect to database";
 }
 
-try
-{
-    $create = $db->prepare("CREATE DATABASE IF NOT EXISTS db_camagru00");
-    $create->execute();
-}
-catch (Exception $e)
-{
-    echo "Error! Can`t create database";
-}
+
 
 try
 {
