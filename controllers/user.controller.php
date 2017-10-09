@@ -18,8 +18,12 @@ class UserController extends Controller
 
 	    if ($post_id == null)
         {
-            if ($username === null)
+            if ($username === null) {
                 $username = $_SESSION['username'];
+            }
+            if ($username === null) {
+                header('Location: login');
+            }
             $data['title'] = $username;
             $data['user'] = $this->model->getUserData($username);
             $data['posts'] = $this->model->getUserPosts($username);

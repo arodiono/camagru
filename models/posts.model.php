@@ -7,11 +7,11 @@ class PostsModel extends Model
         parent::__construct();
     }
 
-    public function     addPost($filename)
+    public function     addPost($filename, $caption = null)
     {
         $user_id    = $_SESSION['user_id'];
-        $request    = "INSERT INTO `posts` (`user_id`, `thumbnail`)
-                       VALUES (\"$user_id\", \"$filename\")";
+        $request    = "INSERT INTO `posts` (`user_id`, `thumbnail`, `caption`)
+                       VALUES (\"$user_id\", \"$filename\", \"$caption\")";
         $insert = $this->database->prepare($request);
         $insert->execute();
     }

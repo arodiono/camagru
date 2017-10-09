@@ -10,6 +10,8 @@ class PostController extends Controller
 
     public function index()
     {
+        if (!Session::isLoggedOnUser())
+            header('Location: login');
         $data['title'] = 'Upload new photo';
         $this->view->render('add_post', $data);
     }
@@ -25,24 +27,38 @@ class PostController extends Controller
         echo json_encode($result);
     }
 
+//    public function create()
+//    {
+//        $data['title'] = 'Upload new photo';
+//        $this->view->render('add_post', $data);
+//    }
+
     public function add()
     {
-        $data['title'] = 'Upload new photo';
-        $this->view->render('add_post', $data);
-    }
-
-    public function edit()
-    {
+        if (!Session::isLoggedOnUser())
+            header('Location: /login');
         if (empty($_POST))
             return;
 
         $file       = $_POST['img'];
+        $caption    = $_POST['caption'];
         $image      = new ImgModel();
         $filename   = $image->save($file);
-        $this->model->addPost($filename);
-
-        $data['title']  = 'Edit';
-        $data['img_id'] = $filename;
-        $this->view->render('post_edit', $data);
+        $this->model->addPost($filename, $caption);
     }
+
+//    public function edit()
+//    {
+//        if (empty($_POST))
+//            return;
+//
+//        $file       = $_POST['img'];
+//        $image      = new ImgModel();
+//        $filename   = $image->save($file);
+//        $this->model->addPost($filename);
+//
+//        $data['title']  = 'Edit';
+//        $data['img_id'] = $filename;
+//        $this->view->render('post_edit', $data);
+//    }
 }

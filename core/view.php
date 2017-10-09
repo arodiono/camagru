@@ -10,9 +10,13 @@ class View
 			extract($data);
 		}
 		include_once APP . 'views/template/header.php';
+		echo PHP_EOL;
 		include_once APP . 'views/' . $content . '.php';
-		include_once APP . 'views/template/footer.php';
-	}
+        echo PHP_EOL;
+        include_once APP . 'views/template/footer.php';
+        echo PHP_EOL;
+
+    }
 
     public function renderNoTemplate($content, $data = array())
     {

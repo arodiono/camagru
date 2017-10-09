@@ -1,4 +1,3 @@
-
 <article class="post-box" id="post_<?=$post_id?>">
     <div class="post-header">
         <?php if($profile_picture !== null):?>
@@ -22,7 +21,7 @@
         echo '<div class="post-likes"><p>' . $count . ' ' . $like . '</p></div>' . PHP_EOL;
         ?>
     <div class="post-comments-block">
-        <?php if (!empty($description)): ?>
+        <?php if (!empty($caption)): ?>
             <div class="post-comment">
                 <p><span class="post-comment-username"><a href="/<?=$username?>"><?=$username?></a></span><?=trim($caption)?></p>
             </div>

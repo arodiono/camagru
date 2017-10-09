@@ -1,5 +1,15 @@
 "use strict";
 
+var menu = document.getElementById('menu');
+menu.addEventListener('click', function () {
+    var dropdown = document.querySelector('.dropdown-menu');
+    if (dropdown.style.display === 'block')
+        dropdown.style.display = 'none';
+    else
+        dropdown.style.display = 'block';
+    this.classList.toggle( "active" );
+});
+
 function getPosts(offset) {
     var data    = new FormData;
     var ajax    = new XMLHttpRequest();

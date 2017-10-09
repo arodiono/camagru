@@ -1,14 +1,15 @@
 @font-face {
 	font-family: 'camagru';
-	src: url('../font/camagru.eot?34391940');
-	src: url('../font/camagru.eot?34391940#iefix') format('embedded-opentype'),
-	url('../font/camagru.woff2?34391940') format('woff2'),
-	url('../font/camagru.woff?34391940') format('woff'),
-	url('../font/camagru.ttf?34391940') format('truetype'),
-	url('../font/camagru.svg?34391940#camagru') format('svg');
+	src: url('../fonts/camagru.eot?34391940');
+	src: url('../fonts/camagru.eot?34391940#iefix') format('embedded-opentype'),
+	url('../fonts/camagru.woff2?34391940') format('woff2'),
+	url('../fonts/camagru.woff?34391940') format('woff'),
+	url('../fonts/camagru.ttf?34391940') format('truetype'),
+	url('../fonts/camagru.svg?34391940#camagru') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
+
 
 html {
 	box-sizing: border-box;
@@ -743,6 +744,7 @@ nav {
 }
 
 .profile-posts {
+	margin-top: 30px;
 	 margin-left: auto;
 	 margin-right: auto;
 	 box-sizing: border-box;
@@ -952,40 +954,85 @@ input:disabled {
 	padding: 10px 0;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	/*justify-content: space-around;*/
 }
 
-.posts,.followers, .following {
+.posts,.likes {
+	margin-right: 30px;
 	text-align: center;
 	font-size: 0.8rem;
 }
 
-.posts span,.followers span, .following span {
+.posts span,.likes span {
 	font-size: 1.1rem;
 	font-weight: bold;
 }
 
 .controls {
+	padding: 15px 0;
+	display: none;
 	height: 70px;
+	justify-content: space-between;
 }
 .controls img {
 	width: auto;
 	height: auto;
 	max-width: 100%;
 	max-height: 100%;
+
 }
 
-.post-edit {
+.workspace {
+	position: relative;
 	width: 100%;
 	height: auto;
 }
-.post-edit canvas
-{
+.droppable {
+	cursor: copy;
+}
+video {
+	width: 100%;
+	height: auto;
+	cursor: copy;
+}
+.draggable {
+	display: none;
+	overflow: hidden;
 	position: absolute;
+	top: 0;
 	width: 100%;
 	height: 100%;
 }
-
+.caption {
+	width: 100%;
+	border: none;
+	border-bottom: .5px solid rgba(0, 0, 0, 0.15);
+	outline: none;
+	margin-bottom: 15px;
+	background: inherit;
+	color: #333;
+	padding: 15px;
+}
+.next {
+	margin-top: 30px;
+	width: 30vw;
+	height: 30vw;
+	max-width: 100px;
+	max-height: 100px;
+	border: none;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #6e8efb, #a777e3);
+	color: #fff;
+	font-size: 1.2rem;
+	text-align: center;
+	cursor: pointer;
+}
+.next:hover {
+	opacity: 0.8;
+}
+.next:active, .next:visited, .next:hover{
+	outline: none;
+}
 @media screen and (max-width: 425px) {
 
 	header {
@@ -1036,4 +1083,3 @@ input:disabled {
 		margin: 20px 10px;
 	}
 }
-
