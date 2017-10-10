@@ -25,7 +25,7 @@ class UserController extends Controller
                 header('Location: login');
             }
             $data['title'] = $username;
-            $data['user'] = $this->model->getUserData($username);
+            $data['user'] = $this->model->getUserDataFromName($username);
             $data['posts'] = $this->model->getUserPosts($username);
             $this->view->render('user_page', $data);
         }
@@ -43,7 +43,7 @@ class UserController extends Controller
         if (!Session::isLoggedOnUser()) {
             header('Location: /login');
         }
-        $data['user'] = $this->model->getUserData($_SESSION['username']);
+        $data['user'] = $this->model->getUserDataFromName($_SESSION['username']);
         $data['title'] = 'Edit profile';
         $this->view->render('user_config', $data);
     }

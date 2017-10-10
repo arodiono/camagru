@@ -7,17 +7,48 @@ class ImgModel extends Model
         parent::__construct();
     }
 
-    public function save($img)
+    public function save($src)
     {
-        $file       = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $img));
+        $file       = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $src));
         $filename   = hash('md5', uniqid(rand(), true));
-        $path       = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR;
+        $path       = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR . $filename;
 
         if (!is_dir($path))
             mkdir($path);
-        file_put_contents($path . $filename . '.png', $file);
 
-        $img = imagecreatefrompng($path . $filename . '.png');
+        $img = $this->cropToFit(imagecreatefromstring($file));
+        imagepng($img, $path . '.png', 0);
+
+        $thumb = $this->cropToSquare($img);
+        imagepng($thumb, $path . '_thumb.png', 0);
+
+        return $filename;
+    }
+
+    public static function delete($username, $filename)
+    {
+        unlink('uploads' . DIRECTORY_SEPARATOR . $username . DIRECTORY_SEPARATOR . $filename . '.png');
+        unlink('uploads' . DIRECTORY_SEPARATOR . $username . DIRECTORY_SEPARATOR . $filename . '_thumb.png');
+    }
+
+    private function cropToFit($img)
+    {
+        $x = imagesx($img);
+        $y = imagesy($img);
+        $ratio = $x / $y;
+        if($ratio > 1) {
+            $x = 568;
+            $y = 568 / $ratio;
+        }
+        else {
+            $x = 1000 * $ratio;
+            $y = 1000;
+        }
+        return imagescale($img, $x, $y);
+    }
+
+    private function cropToSquare($img)
+    {
         $x = imagesx($img);
         $y = imagesy($img);
         $size = min($x, $y);
@@ -33,10 +64,7 @@ class ImgModel extends Model
         else {
             $rect['y'] = ($y - $size) / 2;
         }
-        $im2 = imagescale(imagecrop($img, $rect), 200);
-        if ($im2 !== FALSE) {
-            imagepng($im2, $path . $filename . '_thumb.png');
-        }
-        return $filename;
+        return imagescale(imagecrop($img, $rect), 200);
+
     }
 }

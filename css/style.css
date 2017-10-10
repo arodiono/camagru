@@ -476,6 +476,7 @@ h6, .h6 {
 }
 
 .form {
+	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
@@ -531,6 +532,11 @@ a.btn {
 	display: flex;
 	border-bottom: 1px solid #efefef;
 	box-sizing: border-box;
+	justify-content: space-between;
+}
+
+.post-delete {
+	cursor: pointer;
 }
 
 .post-footer {
@@ -580,7 +586,11 @@ a.btn {
 }
 
 .post-img {
-	width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100%;
+	max-height: 1000px;
 }
 
 .post-user-img{
@@ -592,7 +602,7 @@ a.btn {
 	margin-right: 15px;
 }
 
-.post-username {
+.post-username, .post-delete {
 	margin: 3px 0;
 	font-weight: 700;
 }
@@ -754,8 +764,12 @@ nav {
 	 justify-content: space-between;
  }
 
+.profile-posts:last-child {
+	justify-content: flex-start;
+}
+
 .profile-post-box {
-	width: 33%;
+	width: 33.33333%;
 	height: auto;
 	overflow: hidden;
 }
@@ -1032,6 +1046,13 @@ video {
 }
 .next:active, .next:visited, .next:hover{
 	outline: none;
+}
+.btn-gradient {
+	background: linear-gradient(135deg, #6e8efb, #a777e3);
+	color: #fff;
+}
+.btn-gradient:hover {
+	opacity: 0.8;
 }
 @media screen and (max-width: 425px) {
 

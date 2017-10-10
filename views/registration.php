@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="form-box">
-            <h1 class="text-center">Camagru</h1>
+            <h1 class="text-center">Camagram</h1>
             <p class="text-center">Sign up to see photos from your friends</p>
             <div class="form">
                 <form method="post" name="registration" action="javascript:void(null);" id="signup">

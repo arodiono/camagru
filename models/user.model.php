@@ -59,11 +59,21 @@ class UserModel extends Model
             return false;
     }
 
-	public function getUserData($username)
+	public function getUserDataFromName($username)
     {
         $request = "SELECT `username`, `fullname`, `email`, `hash`, `profile_picture`, `biography`
                     FROM `users`
                     WHERE `username` = '$username'";
+        $select = $this->database->prepare($request);
+        $select->execute();
+        return $select->fetch(2);
+    }
+
+    public function getUserDataFromId($user_id)
+    {
+        $request = "SELECT `users`.*, COUNT(`posts`.`user_id`) AS posts_count FROM `users`
+                    LEFT JOIN `posts` ON `users`.`user_id` = `posts`.`user_id`
+                    WHERE `users`.`user_id`= \"$user_id\" GROUP BY `users`.`user_id`";
         $select = $this->database->prepare($request);
         $select->execute();
         return $select->fetch(2);

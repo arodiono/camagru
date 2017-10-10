@@ -1,14 +1,6 @@
 "use strict";
 
-var menu = document.getElementById('menu');
-menu.addEventListener('click', function () {
-    var dropdown = document.querySelector('.dropdown-menu');
-    if (dropdown.style.display === 'block')
-        dropdown.style.display = 'none';
-    else
-        dropdown.style.display = 'block';
-    this.classList.toggle( "active" );
-});
+
 
 function getPosts(offset) {
     var data    = new FormData;
@@ -18,11 +10,25 @@ function getPosts(offset) {
     ajax.open('POST', '/main/getPosts', true);
     ajax.send(data);
     ajax.onreadystatechange = function() {
-        if (this.readyState == 4) {
+        if (this.readyState === 4) {
             var content = document.querySelector('.content');
             var div = document.createElement(div);
             div.innerHTML = ajax.responseText;
             content.appendChild(div);
+        }
+    }
+}
+
+function deletePost(post_id) {
+    var data    = new FormData;
+    var ajax    = new XMLHttpRequest();
+
+    data.append('post_id', post_id);
+    ajax.open('POST', '/post/delete', true);
+    ajax.send(data);
+    ajax.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            document.getElementById('post_' + post_id).remove();
         }
     }
 }
@@ -35,9 +41,12 @@ function setLike(post_id) {
     xhr.open('POST', '/post/like', true);
     xhr.send(data);
     xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
+        if (this.readyState === 4) {
+            if (this.status === 401) {
+                window.location.pathname = '/login';
+            }
             var likes   = JSON.parse(xhr.responseText);
-            var text    = likes == 1 ? 'like' : 'likes';
+            var text    = likes === 1 ? 'like' : 'likes';
             var post    = document.querySelector('#post_' + post_id + ' .post-likes p');
             post.innerHTML = likes + ' ' + text;
         }
@@ -55,7 +64,10 @@ function sendComment(post_id) {
     xhr.open('POST', '/post/comment', true);
     xhr.send(data);
     xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
+        if (this.readyState === 4) {
+            if (this.status === 401) {
+                window.location.pathname = '/login';
+            }
             var post = document.querySelector('#post_' + post_id + ' .post-comments-block');
             var comment = JSON.parse(xhr.responseText);
             var div = document.createElement('div');

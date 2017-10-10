@@ -11,16 +11,16 @@
 <body>
 <div class="container">
     <div class="form-box">
-        <h1 class="header-logo text-center">Camagru</h1>
+        <h1 class="header-logo text-center">Camagram</h1>
         <div class="form">
-            <form method="post" name="login" action="javascript:void(null);" onsubmit="sendRequest()">
+            <form name="login">
                 <div class="form-group">
                     <input id="email" class="form-control" type="email" name="email" placeholder="Email" autofocus>
                 </div>
                 <div class="form-group">
                     <input id="password" class="form-control" type="password" name="password" placeholder="Password">
                 </div>
-                <input class="btn btn-default btn-inline" type="submit" value="Log in">
+                <input type="submit" class="btn btn-gradient btn-inline"  value="Log in">
             </form>
 
             <div class="form-box-footer">
@@ -30,69 +30,55 @@
             </div>
         </div>
     </div>
-<!--    <script src="--><?//='//' . $_SERVER['HTTP_HOST'] . '/' ?><!--js/registration.js"></script>-->
 </div>
 </body>
 </html>
 
 
 
-
-<!--<div class="login-form">-->
-<!--	<form method="post" name="login">-->
-<!--		<div class="form-group">-->
-<!--			<label for="email">Email address</label>-->
-<!--			<input id="email" class="form-control" type="email" name="email" placeholder="Enter email adress">-->
-<!--		</div>-->
-<!--		<div class="form-group">-->
-<!--			<label for="password">Password</label>-->
-<!--			<input id="password" class="form-control" type="password" name="password" placeholder="Enter Password">-->
-<!--		</div>-->
-<!--		<input class="btn" type="button" onclick="sendRequest(); " value="Login">-->
-<!--	</form>-->
-<!--    <a href="/password/forgot">Forgot password?</a>-->
-<!--</div>-->
-
-
-<script>
-"use strict";
-function sendRequest()
-{
-	removeAlert();
-	var request = new XMLHttpRequest();
-	var data = new FormData(document.forms.login);
-	var message = "<div class=\"alert alert-danger\"><strong>Warning! </strong> All fields must not be empty</div>";
-	if (!data.get("email") || !data.get("password")) {
-		renderAlert(message);
-		return;
-	}
-	request.open('POST', 'login/login', true);
-	request.send(data);
-	request.onreadystatechange = function() {
-		if (this.readyState != 4)
-			return;
-		if (this.status != 200 && this.status != 201) {
-			renderAlert( 'Error: ' + (this.status ? this.statusText : 'Request failed') );
-			return;
-		}
-		if (this.status == 201) {
-			setTimeout( location.href = "//" + location.host, 500 );
-		}
-		renderAlert(this.responseText);
-		return;
-	}
-}
-function renderAlert(body) {
-	var div = document.createElement('div');
-	var container = document.querySelector(".form");
-	div.innerHTML = body;
-	container.insertBefore(div, container.firstChild);
-}
-function removeAlert() {
-	var container = document.querySelector(".form");
-	var alert = document.querySelector(".alert");
-	if (alert)
-		alert.remove();
-}
+<script type="text/javascript">
+    'use strict';
+    var form = document.querySelector('form');
+    form.addEventListener('submit', sendRequest);
+    form.lastChild.addEventListener('click', sendRequest);
+    function sendRequest(e)
+    {
+        e.preventDefault();
+        removeAlert();
+        var request = new XMLHttpRequest();
+        var data = new FormData(e.target);
+        var message = "<div class=\"alert alert-danger\"><strong>Warning! </strong> All fields must not be empty</div>";
+        if (!data.get("email") || !data.get("password")) {
+            renderAlert(message);
+            return;
+        }
+        request.open('POST', 'login/login', true);
+        request.send(data);
+        request.onreadystatechange = function() {
+            if (this.readyState !== 4)
+                return;
+            if (this.status !== 200 && this.status !== 201) {
+                renderAlert( 'Error: ' + (this.status ? this.statusText : 'Request failed') );
+                return;
+            }
+            if (this.status === 201) {
+                setTimeout( location.href = "//" + location.host, 500 );
+            }
+            renderAlert(this.responseText);
+            return;
+        }
+    }
+    function renderAlert(body) {
+        var div = document.createElement('div');
+        var container = document.querySelector(".form");
+        div.innerHTML = body;
+        container.insertBefore(div, container.firstChild);
+    }
+    function removeAlert() {
+        var container = document.querySelector(".form");
+        var alert = document.querySelector(".alert");
+        if (alert)
+            alert.remove();
+    }
 
 </script>

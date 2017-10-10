@@ -15,23 +15,22 @@ class PostController extends Controller
         $data['title'] = 'Upload new photo';
         $this->view->render('add_post', $data);
     }
+
     public function like()
     {
+        if (!Session::isLoggedOnUser())
+            header('HTTP/1.1 401 Unauthorized');
         $result = $this->model->prepareLike();
         echo json_encode($result);
     }
 
     public function comment()
     {
+        if (!Session::isLoggedOnUser())
+            header('HTTP/1.1 401 Unauthorized');
         $result = $this->model->addComment();
         echo json_encode($result);
     }
-
-//    public function create()
-//    {
-//        $data['title'] = 'Upload new photo';
-//        $this->view->render('add_post', $data);
-//    }
 
     public function add()
     {
@@ -47,18 +46,27 @@ class PostController extends Controller
         $this->model->addPost($filename, $caption);
     }
 
-//    public function edit()
-//    {
-//        if (empty($_POST))
-//            return;
-//
-//        $file       = $_POST['img'];
-//        $image      = new ImgModel();
-//        $filename   = $image->save($file);
-//        $this->model->addPost($filename);
-//
-//        $data['title']  = 'Edit';
-//        $data['img_id'] = $filename;
-//        $this->view->render('post_edit', $data);
-//    }
+    public function delete()
+    {
+
+        if (!Session::isLoggedOnUser()){
+            header('HTTP/1.1 401 Unauthorized');
+            return;
+        }
+        if (empty($_POST))
+            return;
+
+        $post_id = $_POST['post_id'];
+
+        if ($this->model->deletePost($post_id))
+        {
+            header('HTTP/1.1 200 OK');
+
+        }
+        else {
+            header('HTTP/1.1 401 Unauthorized');
+
+        }
+    }
+
 }

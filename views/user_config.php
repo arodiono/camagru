@@ -4,7 +4,7 @@
     <form method="post" class="photoUpload" action="/user/changePhoto">
         <div class="profile-img center-block upload">
             <?php if($profile_picture != null): ?>
-            <img src="/uploads/<?=$username?>/<?=$profile_picture?>.png" alt="">
+            <img src="/uploads/<?=$username?>/<?=$profile_picture?>_thumb.png" alt="">
             <?php else: ?>
             <img src="/img/default-user-image.png" alt="">
             <?php endif; ?>
@@ -103,7 +103,7 @@
                 ajax.open('POST', '/user/edit', true);
                 ajax.send(new FormData(this));
                 ajax.onreadystatechange = function () {
-                    if (this.readyState == 4) {
+                    if (this.readyState === 4) {
                         renderAlert(this.responseText);
                     }
                 }

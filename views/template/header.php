@@ -16,6 +16,17 @@
                     <div>
                         <?php if(Session::isLoggedOnUser()):?>
                            <a href="#" id="menu"><span></span></a>
+                            <script>
+                                var menu = document.getElementById('menu');
+                                menu.addEventListener('click', function () {
+                                    var dropdown = document.querySelector('.dropdown-menu');
+                                    if (dropdown.style.display === 'block')
+                                        dropdown.style.display = 'none';
+                                    else
+                                        dropdown.style.display = 'block';
+                                    this.classList.toggle( "active" );
+                                });
+                            </script>
                         <?php else:?>
                             <a href="/login"><i class="icon icon-user"></i></a>
                         <?php endif;?>

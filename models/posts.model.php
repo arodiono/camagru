@@ -16,6 +16,40 @@ class PostsModel extends Model
         $insert->execute();
     }
 
+    public function     deletePost($post_id)
+    {
+        $user_id    = $_SESSION['username'];
+        $post = $this->getPost($post_id);
+
+        if ($post[0]['username'] === $user_id) {
+
+            $request = "DELETE
+                        FROM `comments`
+                        WHERE post_id=\"$post_id\"";
+            $delete = $this->database->prepare($request);
+            $delete->execute();
+
+            $request = "DELETE
+                        FROM `likes`
+                        WHERE post_id=\"$post_id\"";
+            $delete = $this->database->prepare($request);
+            $delete->execute();
+
+            $request = "DELETE
+                        FROM `posts`
+                        WHERE post_id=\"$post_id\"";
+            $delete = $this->database->prepare($request);
+            $delete->execute();
+
+            ImgModel::delete($post[0]['username'], $post[0]['thumbnail']);
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public function     getPost($post_id)
     {
         $request = "SELECT `posts`.`post_id`, `posts`.`thumbnail`, `posts`.`caption`, `posts`.`created_time`, `posts`.`count`, `users`.`username`, `users`.`profile_picture` 
