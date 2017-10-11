@@ -15,7 +15,6 @@ class UserController extends Controller
 
 	public function index($username = null, $post_id = null)
 	{
-
 	    if ($post_id == null)
         {
             if ($username === null) {
@@ -32,7 +31,13 @@ class UserController extends Controller
         else
         {
             $post = new PostsModel();
-            $data['post'] = $post->getPost($post_id);
+
+            if (!($data['post'] = $post->getPost($post_id)))
+            {
+                $error = new ErrorController();
+                $error->error404();
+                return;
+            }
             $data['title'] = '@' . $username . ' | ' . $data['post'][0]['caption'];
             $this->view->render('post', $data);
         }
@@ -82,6 +87,13 @@ class UserController extends Controller
 	{
 		$activate = $this->model->activateUser($data);
 		$this->view->renderNotification();
+		if ($activate)
+		    header('Location: /');
 	}
+
+	public function delete()
+    {
+        $this->model->deleteUser();
+    }
 
 }

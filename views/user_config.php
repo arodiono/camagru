@@ -30,9 +30,7 @@
     </form>
         <div class="user-config-actions">
             <a class="btn btn-default btn-inline" href="/password/reset/<?=$email?>/<?=$hash?>">Change password</a>
-            <form action="javascript:void(null);">
-                <button class="btn btn-default btn-inline">Delete profile</button>
-            </form>
+            <button class="btn btn-default btn-inline" onclick="deleteUser()">Delete profile</button>
         </div>
         <script type="text/javascript">
             (function(window) {
@@ -118,6 +116,20 @@
                 var alert = document.querySelector(".alert");
                 if (alert)
                     alert.remove();
+            }
+            function deleteUser() {
+                if (confirm('Are you sure you want to delete the account? This will result in loss of all data'))
+                {
+                    var ajax = new XMLHttpRequest();
+                    ajax.open('POST', '/user/delete');
+                    ajax.send();
+                    ajax.onreadystatechange = function () {
+                        if (this.status === 200) {
+                            window.location.pathname = '/';
+                        }
+                    }
+                }
+
             }
         </script>
 

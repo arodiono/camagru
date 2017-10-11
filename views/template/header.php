@@ -13,7 +13,7 @@
             <div class="container">
                 <nav>
                     <h1 class="header-logo"><a href="<?='//' . $_SERVER['HTTP_HOST'] . '/' ?>">Camagram</a></h1>
-                    <div>
+
                         <?php if(Session::isLoggedOnUser()):?>
                            <a href="#" id="menu"><span></span></a>
                             <script>
@@ -28,7 +28,7 @@
                                 });
                             </script>
                         <?php else:?>
-                            <a href="/login"><i class="icon icon-user"></i></a>
+                            <button class="btn btn-gradient" onclick="window.location.pathname = '/login'">Login</button>
                         <?php endif;?>
                 </nav>
                 <div class="dropdown-menu hidden">

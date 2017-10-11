@@ -1,1 +1,1 @@
-<h3>404 - Page not found</h3>
+<div class="center-block"><p class="text-center">404 - Page not found</p></div>

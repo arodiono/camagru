@@ -16,10 +16,21 @@ class Database
 			}
 			catch (Exception $e)
 			{
-				echo 'Database Error ' . $e->getCode() . ' Please try again later.' . '<br>';
+			    if ($e->getCode() === 1049)
+				    echo 'Welcome! ' . '<br>' . 'Create database and then' . ' click <a href="/config/setup.php">here</a> to setup';
 				exit;
 			}
 		}
 		return self::$database;
 	}
+
+	public static function checkTable()
+    {
+        $db = self::getConnection();
+        $res = $db->prepare('SHOW TABLES LIKE \'users\'');
+        $res->execute();
+        if ($res->rowCount() === 0)
+            return false;
+        return true;
+    }
 }

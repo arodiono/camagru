@@ -26,5 +26,8 @@ spl_autoload_register(function ($class) {
 		include $views;
 });
 
+if (!Database::checkTable())
+    header('Location: /config/setup.php');
+
 $app = new Route();
 

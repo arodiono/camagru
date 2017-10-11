@@ -24,6 +24,7 @@ function add(e) {
     newNode.style.top = '0px';
     newNode.style.left = '0px';
     newNode.addEventListener('mousedown', drag);
+    newNode.addEventListener('touchstart', drag);
     newNode.addEventListener('contextmenu', remove);
     dragg.appendChild(newNode);
     btn.classList.add('next', 'center-block');
@@ -61,6 +62,14 @@ function drag(e) {
     }
     e.target.onmousemove = function(e) {
         moveAt(e);
+    };
+    e.target.ontouchmove = function(e) {
+        moveAt(e);
+    };
+    document.ontouchend = function() {
+        e.target.style.cursor = 'move';
+        e.target.onmousemove = null;
+        e.onmouseup = null;
     };
     document.onmouseup = function() {
         e.target.style.cursor = 'move';

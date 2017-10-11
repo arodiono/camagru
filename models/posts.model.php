@@ -58,6 +58,10 @@ class PostsModel extends Model
                     WHERE (`posts`.`post_id`=\"$post_id\")";
         $select = $this->database->prepare($request);
         $select->execute();
+
+        if($select->rowCount() === 0)
+            return false;
+
         $post = $select->fetchAll(2);
         $post[0]['comments'] = $this->getComments($post_id);
         return $post;

@@ -722,6 +722,7 @@ nav {
 	flex-wrap: nowrap;
 	align-content: center;
 	justify-content: space-between;
+	align-items: center;
 	padding: 18px 0 ;
 }
 
@@ -983,16 +984,21 @@ input:disabled {
 }
 
 .controls {
+	max-width: 100%;
 	padding: 15px 0;
 	display: none;
-	height: 70px;
+	flex-wrap: wrap;
+	/*height: 70px;*/
 	justify-content: space-between;
+}
+.controls:last-child {
+	justify-content: flex-start;
 }
 .controls img {
 	width: auto;
 	height: auto;
 	max-width: 100%;
-	max-height: 100%;
+	max-height: 70px;
 
 }
 

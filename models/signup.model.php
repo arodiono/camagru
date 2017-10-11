@@ -121,10 +121,21 @@ class SignupModel extends Model
 		$message .= '<h3>To activate your account, please follow the link</h3></br>' . $link;
 		$message .= file_get_contents(APP . 'views/mail/footer.php');
 
-		$headers = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $encoding = "utf-8";
+        $subject_preferences = array(
+            "input-charset" => $encoding,
+            "output-charset" => $encoding,
+            "line-length" => 76,
+            "line-break-chars" => "\r\n"
+        );
+        $header = "Content-type: text/html; charset=".$encoding." \r\n";
+        $header .= "From: Camagram <noreply@camagram.com> \r\n";
+        $header .= "MIME-Version: 1.0 \r\n";
+        $header .= "Content-Transfer-Encoding: 8bit \r\n";
+        $header .= "Date: ".date("r (T)")." \r\n";
+        $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
 
-		$send = mail($email, $subject, $message, $headers);
+		$send = mail($email, $subject, $message, $header);
 		if( $send == true )
 			return true;
 		else

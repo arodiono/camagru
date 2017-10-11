@@ -14,8 +14,8 @@ class UserModel extends Model
 		$hash = $data[1];
 		$request = "UPDATE `users`
 					SET `active` = 1
-					WHERE `email` = $email
-					AND `hash` = $hash";
+					WHERE `email` = \"$email\"
+					AND `hash` = \"$hash\"";
 		$update = $this->database->prepare($request);
 		$update->execute();
 		$count = $update->rowCount();
@@ -90,5 +90,38 @@ class UserModel extends Model
         $select = $this->database->prepare($request);
         $select->execute();
         return $select->fetchAll(2);
+    }
+
+    public function deleteUser()
+    {
+        $id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];
+        var_dump($id);
+        var_dump($username);
+        $request = "DELETE FROM `likes` WHERE `user_id`=\"$id\"";
+        $delete = $this->database->prepare($request);
+        $delete->execute();
+        var_dump($delete->fetchAll());
+
+
+        $request = "DELETE FROM `comments` WHERE `user_id`=\"$id\"";
+        $delete = $this->database->prepare($request);
+        $delete->execute();
+        var_dump($delete->fetchAll());
+
+        $request = "DELETE FROM `posts` WHERE `user_id`=\"$id\"";
+        $delete = $this->database->prepare($request);
+        $delete->execute();
+        var_dump($delete->fetchAll());
+
+        $request = "DELETE FROM `users` WHERE `user_id`=\"$id\"";
+        $delete = $this->database->prepare($request);
+        $delete->execute();
+        var_dump($delete->fetchAll());
+
+        ImgModel::delTree('uploads/' . $username);
+
+        Session::destroy();
+        header('Location: //' . $_SERVER['HTTP_HOST']);
     }
 }

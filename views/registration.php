@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <input id="passwordConfirm" class="form-control" type="password" name="passwordConfirm" placeholder="Confirm password">
                     </div>
-                    <input class="btn btn-default btn-inline" type="submit" value="Sign up">
+                    <input class="btn btn-gradient btn-inline" type="submit" value="Sign up">
                 </form>
                 <div class="form-box-footer">
                     <p class="text-center">Have an account?</p>

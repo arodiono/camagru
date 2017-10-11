@@ -11,16 +11,16 @@ class ImgModel extends Model
     {
         $file       = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $src));
         $filename   = hash('md5', uniqid(rand(), true));
-        $path       = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR . $filename;
+        $path       = 'uploads' . DIRECTORY_SEPARATOR . $_SESSION['username'] . DIRECTORY_SEPARATOR;
 
         if (!is_dir($path))
             mkdir($path);
 
         $img = $this->cropToFit(imagecreatefromstring($file));
-        imagepng($img, $path . '.png', 0);
+        imagepng($img, $path . $filename .'.png', 0);
 
         $thumb = $this->cropToSquare($img);
-        imagepng($thumb, $path . '_thumb.png', 0);
+        imagepng($thumb, $path . $filename .'_thumb.png', 0);
 
         return $filename;
     }
@@ -29,6 +29,14 @@ class ImgModel extends Model
     {
         unlink('uploads' . DIRECTORY_SEPARATOR . $username . DIRECTORY_SEPARATOR . $filename . '.png');
         unlink('uploads' . DIRECTORY_SEPARATOR . $username . DIRECTORY_SEPARATOR . $filename . '_thumb.png');
+    }
+
+    public static function delTree($dir) {
+        $files = array_diff(scandir($dir), array('.','..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? self::delTree("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
     }
 
     private function cropToFit($img)

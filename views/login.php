@@ -31,11 +31,6 @@
         </div>
     </div>
 </div>
-</body>
-</html>
-
-
-
 <script type="text/javascript">
     'use strict';
     var form = document.querySelector('form');
@@ -80,5 +75,6 @@
         if (alert)
             alert.remove();
     }
-
 </script>
+</body>
+</html>

@@ -1,16 +1,13 @@
 <article class="post-box" id="post_<?=$post_id?>">
     <div class="post-header">
         <div>
-
         <?php if($profile_picture !== null):?>
-
         <a href="/<?php $username?>"><img class="post-user-img" src="/uploads/<?php echo $username . '/' . $profile_picture . '.png' ?>" alt=""></a>
         <?php else:?>
         <a href="/<?=$username?>"><img class="post-user-img" src="/img/default-user-image.png" alt=""></a>
         <?php endif;?>
         <a class="post-username" href="/<?=$username?>"><?=$username?></a>
         </div>
-
         <?php if (Session::isLoggedOnUser() && $username === $_SESSION['username']):?>
             <div class="post-delete" title="Delete post" onclick="deletePost(<?=$post_id?>)">&#10005;</div>
         <?php endif;?>
@@ -20,9 +17,9 @@
     </div>
     <div class="post-footer">
         <div class="post-footer-actions">
-            <i class="icon icon-heart red" onclick="setLike(<?=$post_id?>)"></i>
+            <i class="icon icon-heart" onclick="setLike(<?=$post_id?>)"></i>
             <i class="icon icon-comment" onclick="setFocusInput(<?=$post_id?>)"></i>
-            <i class="icon icon-paper-plane"></i>
+<!--            <i class="icon icon-paper-plane"></i>-->
         </div>
         <?php
         $like = $count == 1 ? 'like' : 'likes';
