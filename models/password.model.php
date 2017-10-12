@@ -11,8 +11,7 @@ class PasswordModel extends Model
 	{
 		$email = $_POST['email'];
 
-		if ( !filter_var($email, FILTER_VALIDATE_EMAIL) )
-		{
+		if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 			Session::add('errorMessage', 'Invalid e-mail address');
 			return false;
 		}
@@ -23,22 +22,17 @@ class PasswordModel extends Model
 		$request->execute();
 
 		$data = $request->fetch();
-
-		if ($data != null)
-		{
-			if ($this->sendResetPasswordMail($data->email, $data->hash))
-			{
+		if ($data != null) {
+			if ($this->sendResetPasswordMail($data->email, $data->hash)) {
 				Session::add('infoMessage', 'The password recovery instruction was successfully sent to your e-mail');
 				return true;
 			}
-			else
-			{
+			else {
 				Session::add('errorMessage', 'Error when sending a message');
 				return false;
 			}
 		}
-		else
-		{
+		else {
 			Session::add('errorMessage', 'Invalid e-mail address');
 			return false;
 		}
@@ -64,13 +58,11 @@ class PasswordModel extends Model
 		$update = $this->database->prepare($request);
 		$update->execute();
 		$count = $update->rowCount();
-		if ($count == 1)
-		{
+		if ($count == 1) {
 			Session::add('infoMessage', 'Password successfully updated');
 			return true;
 		}
-		else
-		{
+		else {
 			Session::add('errorMessage', 'Please try again later');
 			return false;
 		}
@@ -79,13 +71,10 @@ class PasswordModel extends Model
 	private function sendResetPasswordMail($email, $hash)
 	{
 		$link = 'http://' . $_SERVER['HTTP_HOST'] . '/password/reset/' . $email . '/'. $hash . '/';
-
 		$subject = 'Camagram account password reset';
-
 		$message = file_get_contents(APP . 'views/mail/header.php');
 		$message .= '<h3>To reset your account password, please follow the link</h3></br>' . $link;
 		$message .= file_get_contents(APP . 'views/mail/footer.php');
-
         $encoding = "utf-8";
         $subject_preferences = array(
             "input-charset" => $encoding,
@@ -99,7 +88,6 @@ class PasswordModel extends Model
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: ".date("r (T)")." \r\n";
         $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
-
 		$send = mail($email, $subject, $message, $header);
 		if( $send == true )
 			return true;

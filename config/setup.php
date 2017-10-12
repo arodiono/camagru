@@ -1,18 +1,12 @@
 <?php
-
 require_once 'config.php';
-
-try
-{
+try {
 	$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
 	echo "Error! Can`t connect to database";
 }
-
-try
-{
+try {
     $insert = $db->prepare("CREATE TABLE `users` (
                                       `user_id` int(11) NOT NULL AUTO_INCREMENT,
                                       `active` int(1) unsigned NOT NULL DEFAULT '0',
@@ -27,13 +21,10 @@ try
                                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
     $insert->execute();
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
     echo "Error! Can`t add table to database";
 }
-
-try
-{
+try {
     $insert = $db->prepare("CREATE TABLE `posts` (
                                       `post_id` int(11) NOT NULL AUTO_INCREMENT,
                                       `user_id` int(11) DEFAULT NULL,
@@ -47,13 +38,10 @@ try
                                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
     $insert->execute();
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
     echo "Error! Can`t add table to database";
 }
-
-try
-{
+try {
 	$insert = $db->prepare("CREATE TABLE `comments` (
                                       `comment_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
                                       `user_id` int(11) DEFAULT NULL,
@@ -68,13 +56,10 @@ try
                                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 	$insert->execute();
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
 	echo "Error! Can`t add table to database";
 }
-
-try
-{
+try {
     $insert = $db->prepare("CREATE TABLE `likes` (
                                       `like_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
                                       `user_id` int(11) DEFAULT NULL,
@@ -87,9 +72,7 @@ try
                                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
     $insert->execute();
 }
-catch (Exception $e)
-{
+catch (Exception $e) {
     echo "Error! Can`t add table to database";
 }
-
 header('Location: /');

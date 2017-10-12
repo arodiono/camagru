@@ -1,7 +1,4 @@
 "use strict";
-
-
-
 function getPosts(offset) {
     var data    = new FormData;
     var ajax    = new XMLHttpRequest();
@@ -18,7 +15,6 @@ function getPosts(offset) {
         }
     }
 }
-
 function deletePost(post_id) {
     var data    = new FormData;
     var ajax    = new XMLHttpRequest();
@@ -32,7 +28,6 @@ function deletePost(post_id) {
         }
     }
 }
-
 function setLike(post_id) {
     var data    = new FormData();
     var xhr     = new XMLHttpRequest();
@@ -87,4 +82,3 @@ function unsetFocusInput() {
     var input = document.activeElement;
     input.blur();
 }
-

@@ -10,43 +10,32 @@ class Route
 	{
 		$this->splitUrl();
 
-		if($this->controller == null)
-		{
-			// Set default controller
+		if($this->controller == null) {
 			$this->controller = new MainController();
 			$this->controller->index();
 		}
-		elseif ($this->isUser())
-        {
+		elseif ($this->isUser()) {
             $user = $this->controller;
             $this->controller = new UserController();
             $this->controller->index($user, $this->action);
         }
-		elseif (file_exists(APP . 'controllers/' . $this->controller . '.controller.php'))
-		{
-			// Set controller and model if exist
+		elseif (file_exists(APP . 'controllers/' . $this->controller . '.controller.php')) {
 			$controller_name = ucfirst($this->controller) . 'Controller';
 			$this->controller = new $controller_name();
 
-			if ($this->action == null)
-			{
+			if ($this->action == null) {
 				$this->controller->index();
 			}
-			elseif (method_exists($controller_name, $this->action))
-			{
+			elseif (method_exists($controller_name, $this->action)) {
 				$this->controller = new $controller_name();
 				call_user_func_array(array($this->controller, $this->action), array($this->params));
 			}
-			else
-			{
-				// Set error if model not exist
+			else {
 				$this->controller = new ErrorController();
 				$this->controller->error404();
 			}
 		}
-		else
-		{
-			// Set error if controller not exist
+		else {
 			$this->controller = new ErrorController();
 			$this->controller->error404();
 		}

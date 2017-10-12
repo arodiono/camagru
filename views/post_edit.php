@@ -17,7 +17,6 @@
         <img class="droppable" src="/img/stickers/zzz.png" alt="">
     </div>
 </div>
-
 <script type="text/javascript">
     var a = document.querySelector('.controls');
     var c = document.querySelector('.active-canvas');
@@ -31,7 +30,6 @@
             d[i].addEventListener('mousedown', drag);
         }
     };
-
     function drag(e) {
         var coords = getCoords(e.target);
         var shiftX = e.pageX - coords.left;

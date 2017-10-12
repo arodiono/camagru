@@ -9,13 +9,11 @@ class Database
 		if (!self::$database)
 		{
 			require APP . 'config/config.php';
-			try
-			{
+			try {
 				$options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
 				self::$database = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $options);
 			}
-			catch (Exception $e)
-			{
+			catch (Exception $e) {
 			    if ($e->getCode() === 1049)
 				    echo 'Welcome! ' . '<br>' . 'Create database and then' . ' click <a href="/config/setup.php">here</a> to setup';
 				exit;

@@ -93,8 +93,6 @@
                     };
                 });
             })(this);
-
-
             document.forms.edit.addEventListener('submit', function () {
                 removeAlert();
                 var ajax = new XMLHttpRequest();
@@ -132,7 +130,6 @@
 
             }
         </script>
-
     </div>
 </div>
 </div>

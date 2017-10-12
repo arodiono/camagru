@@ -837,15 +837,11 @@ input:disabled {
 
 .user-config-actions {
 	margin: 50px 0;
-	/*display: flex;*/
-	/*justify-content: space-around;*/
-	/*align-items: baseline;*/
 }
-
 
 #menu {
 	cursor: pointer;
-	padding: 10px 35px 16px 0px;
+	padding: 15px 35px 16px 0px;
 }
 #menu span, #menu span:before, #menu span:after {
 	cursor: pointer;

@@ -10,10 +10,6 @@
         </div>
         <div class="profile-info">
             <div class="profile-username">@<?=$user['username']?></div>
-<!--            <div class="profile-counters">-->
-<!--                <div class="posts"><span>99</span><br>posts</div>-->
-<!--                <div class="likes"><span>12</span><br>likes</div>-->
-<!--            </div>-->
             <div class="profile-fullname"><?=$user['fullname']?></div>
             <div class="profile-biography"><?=$user['biography']?></div>
         </div>

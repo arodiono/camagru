@@ -177,8 +177,7 @@ class PostsModel extends Model
         $author = $_SESSION['user_id'];
         $created_time = time();
 
-        if (!empty($text) && !empty($post_id) && !empty($author))
-        {
+        if (!empty($text) && !empty($post_id) && !empty($author)) {
             $data = array($author, $post_id, $text, $created_time);
             $request = "INSERT INTO `comments` (`user_id`, `post_id`, `text`, `created_time`)
                         VALUES (?, ?, ?, ?)";
@@ -192,5 +191,35 @@ class PostsModel extends Model
         }
         else
             return false;
+    }
+
+    public function     sendCommentEmail($data)
+    {
+        $post = $this->getPost($data['post_id']);
+        $user = new UserModel();
+        $userdata = $user->getUserDataFromName($post[0]['username']);
+        $email = $userdata['email'];
+        $subject = 'You have new comment';
+        $link = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $userdata['username'] . '/' . $data['post_id'];
+        $message = file_get_contents(APP . 'views/mail/header.php');
+        $message .= '<p>You have new comment from <b>' . $data['username'] . '</b></p></br>';
+        $message .= '<p>' . $data['text'] . '</p></br>';
+        $message .= '<p>' . $link . '</p></br>';
+        $message .= file_get_contents(APP . 'views/mail/footer.php');
+        $encoding = "utf-8";
+        $subject_preferences = array(
+            "input-charset" => $encoding,
+            "output-charset" => $encoding,
+            "line-length" => 76,
+            "line-break-chars" => "\r\n"
+        );
+        $header = "Content-type: text/html; charset=".$encoding." \r\n";
+        $header .= "From: Camagram <noreply@camagram.com> \r\n";
+        $header .= "MIME-Version: 1.0 \r\n";
+        $header .= "Content-Transfer-Encoding: 8bit \r\n";
+        $header .= "Date: ".date("r (T)")." \r\n";
+        $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
+
+        mail($email, $subject, $message, $header);
     }
 }

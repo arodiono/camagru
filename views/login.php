@@ -70,7 +70,6 @@
         container.insertBefore(div, container.firstChild);
     }
     function removeAlert() {
-        var container = document.querySelector(".form");
         var alert = document.querySelector(".alert");
         if (alert)
             alert.remove();

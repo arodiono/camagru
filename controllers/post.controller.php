@@ -29,6 +29,7 @@ class PostController extends Controller
         if (!Session::isLoggedOnUser())
             header('HTTP/1.1 401 Unauthorized');
         $result = $this->model->addComment();
+        $this->model->sendCommentEmail($result);
         echo json_encode($result);
     }
 

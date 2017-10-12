@@ -5,8 +5,7 @@ class View
 
 	public function render($content, $data = array())
 	{
-		if(is_array($data))
-		{
+		if(is_array($data)) {
 			extract($data);
 		}
 		include_once APP . 'views/template/header.php';
@@ -20,8 +19,7 @@ class View
 
     public function renderNoTemplate($content, $data = array())
     {
-        if(is_array($data))
-        {
+        if(is_array($data)) {
             extract($data);
         }
         include_once APP . 'views/' . $content . '.php';
@@ -32,17 +30,13 @@ class View
 		$error = Session::get('errorMessage');
 		$info = Session::get('infoMessage');
 
-		if (isset($error))
-		{
-			foreach ($error as $value)
-			{
+		if (isset($error)) {
+			foreach ($error as $value) {
 				echo '<div class="alert alert-danger">' . '<strong>Warning! </strong>' . $value . '</div>';
 			}
 		}
-		if (isset($info))
-		{
-			foreach ($info as $value)
-			{
+		if (isset($info)) {
+			foreach ($info as $value) {
 				echo '<div class="alert alert-success">' . '<strong>Success! </strong>' . $value . '</div>';
 			}
 		}
@@ -54,8 +48,7 @@ class View
 	public static function renderEmail($data = array())
 	{
 		include_once APP . 'views/template/mail/header.php';
-		foreach ($data as $value)
-		{
+		foreach ($data as $value) {
 			echo $value . '</br>';
 		}
 		include_once APP . 'views/template/mail/footer.php';

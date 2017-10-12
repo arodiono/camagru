@@ -95,5 +95,4 @@ class UserController extends Controller
     {
         $this->model->deleteUser();
     }
-
 }

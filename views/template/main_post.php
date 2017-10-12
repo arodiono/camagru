@@ -19,7 +19,6 @@
         <div class="post-footer-actions">
             <i class="icon icon-heart" onclick="setLike(<?=$post_id?>)"></i>
             <i class="icon icon-comment" onclick="setFocusInput(<?=$post_id?>)"></i>
-<!--            <i class="icon icon-paper-plane"></i>-->
         </div>
         <?php
         $like = $count == 1 ? 'like' : 'likes';

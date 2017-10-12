@@ -5,8 +5,7 @@ class Session
 
 	public static function init()
 	{
-		if (session_id() == '')
-		{
+		if (session_id() == '') {
 			session_start();
 		}
 	}
@@ -28,8 +27,7 @@ class Session
 
 	public static function get($key)
 	{
-		if (isset($_SESSION[$key]))
-		{
+		if (isset($_SESSION[$key])) {
 			return $_SESSION[$key];
 		}
 	}

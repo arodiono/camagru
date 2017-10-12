@@ -2,7 +2,6 @@
 
 class MainController extends Controller
 {
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -28,6 +27,5 @@ class MainController extends Controller
             $this->view->renderNoTemplate('main', $data);
             echo ob_get_contents();
         }
-
     }
 }
